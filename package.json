@@ -1,0 +1,23 @@
+{
+  "name": "valentin-perignon",
+  "version": "1.0.0",
+  "description": "Personal website",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valentinperignon/valentin-perignon.fr.git"
+  },
+  "author": "Valentin Perignon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/valentinperignon/valentin-perignon.fr/issues"
+  },
+  "homepage": "https://github.com/valentinperignon/valentin-perignon.fr#readme",
+  "devDependencies": {
+    "eslint": "^7.14.0",
+    "prettier": "^2.2.0"
+  }
+}
