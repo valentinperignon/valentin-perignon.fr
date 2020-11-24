@@ -1,9 +1,32 @@
+$picture-size: 250px;
+
 header {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2em;
+  border-radius: 20px;
 
   img {
-    width: 200px;
-    height: 200px;
-    border-radius: 20px;
+    width: $picture-size;
+    height: $picture-size;
+    border-radius: 100%;
+    background: $color-gray;
+  }
+
+  h1 {
+    font-size: 2.3em;
+    padding-bottom: 0.2em;
+  }
+
+  h2 {
+    font-size: 1.6em;
+    padding-bottom: 1em;
+  }
+
+  h3 {
+    font-size: 1.1em;
+    font-style: italic;
   }
 }
