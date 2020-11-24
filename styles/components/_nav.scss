@@ -1,11 +1,36 @@
 nav {
-  margin-bottom: 2em;
+  margin-bottom: 2rem;
 
   ul {
     display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
 
     li {
-      padding-right: 1.5em;
+      padding-right: 1.5rem;
+
+      &:last-of-type {
+        padding-right: 0;
+      }
+
+      button {
+        border: none;
+        font-size: 1rem;
+        padding: 0 1rem;
+        background: linear-gradient(to top, $color-yellow 40%, transparent 40%);
+        cursor: pointer;
+        filter: saturate(0);
+        transition: filter 0.2s ease-in-out;
+
+        &.selected,
+        &:hover {
+          filter: saturate(1);
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
     }
   }
 }
