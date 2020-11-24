@@ -1,3 +1,6 @@
+@import "utils/variables";
+
 @import "base/reset", "base/base";
 
-@import "components/header";
+@import "components/header", "components/extlinks", "components/nav",
+  "components/content";

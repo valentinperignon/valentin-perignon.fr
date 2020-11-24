@@ -1,0 +1,13 @@
+.content {
+  display: none;
+
+  &.display-content {
+    display: block;
+  }
+
+  p {
+    font-size: 1em;
+    line-height: 1.2em;
+    padding-bottom: 1em;
+  }
+}

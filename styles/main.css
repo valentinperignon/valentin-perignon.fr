@@ -135,17 +135,71 @@ table {
 
 body {
   font-family: "Raleway", sans-serif;
+}
+
+header,
+#ext-links,
+main {
   max-width: 600px;
-  margin: 2em auto;
+  margin: 0 auto;
+  padding: 0 1.5em;
 }
 
 header {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2em;
+  border-radius: 20px;
 }
 header img {
-  width: 200px;
-  height: 200px;
-  border-radius: 20px;
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  background: #f2f2f7;
+}
+header h1 {
+  font-size: 2.3em;
+  padding-bottom: 0.2em;
+}
+header h2 {
+  font-size: 1.6em;
+  padding-bottom: 1em;
+}
+header h3 {
+  font-size: 1.1em;
+  font-style: italic;
+}
+
+#ext-links {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+nav {
+  margin-bottom: 2em;
+}
+nav ul {
+  display: flex;
+}
+nav ul li {
+  padding-right: 1.5em;
+}
+
+.content {
+  display: none;
+}
+.content.display-content {
+  display: block;
+}
+.content p {
+  font-size: 1em;
+  line-height: 1.2em;
+  padding-bottom: 1em;
 }
 
 /*# sourceMappingURL=main.css.map */
