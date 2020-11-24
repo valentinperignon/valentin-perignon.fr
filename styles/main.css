@@ -142,7 +142,7 @@ header,
 main {
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 1.5em;
+  padding: 0 1.5rem;
 }
 
 header {
@@ -150,44 +150,100 @@ header {
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2em;
+  margin-top: 3rem;
   border-radius: 20px;
 }
-header img {
+header #image {
   width: 250px;
   height: 250px;
+  background-image: url("../images/animation.png");
+  background-size: auto 250px;
+  background-color: #f2f2f7;
   border-radius: 100%;
-  background: #f2f2f7;
+  animation: helloworld 0.37s steps(7) forwards;
+  animation-delay: 0.5s;
+}
+header #image:hover {
+  background-position-x: 0px;
 }
 header h1 {
-  font-size: 2.3em;
-  padding-bottom: 0.2em;
+  font-size: 2.4rem;
+  padding-bottom: 0.3rem;
 }
 header h2 {
-  font-size: 1.6em;
-  padding-bottom: 1em;
+  font-size: 1.6rem;
+  padding-bottom: 1.4rem;
 }
 header h3 {
-  font-size: 1.1em;
+  font-size: 1.1rem;
   font-style: italic;
 }
 
+@keyframes helloworld {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: -1750px;
+  }
+}
 #ext-links {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+#ext-links li a {
+  font-size: 1rem;
+}
+#ext-links li a:hover {
+  text-decoration: none;
+}
+#ext-links li:nth-child(1) a {
+  color: #f4b700;
+}
+#ext-links li:nth-child(2) a {
+  color: #0d65c2;
+}
+#ext-links li:nth-child(3) a {
+  color: #24292f;
+}
+#ext-links li:nth-child(4) a {
+  color: #1e1f26;
+}
+#ext-links li:nth-child(5) a {
+  color: #1d8ff4;
 }
 
 nav {
-  margin-bottom: 2em;
+  margin-bottom: 2rem;
 }
 nav ul {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
 }
 nav ul li {
-  padding-right: 1.5em;
+  padding-right: 1.5rem;
+}
+nav ul li:last-of-type {
+  padding-right: 0;
+}
+nav ul li button {
+  border: none;
+  font-size: 1rem;
+  padding: 0 1rem;
+  background: linear-gradient(to top, #f4b700 40%, transparent 40%);
+  cursor: pointer;
+  filter: saturate(0);
+  transition: filter 0.2s ease-in-out;
+}
+nav ul li button.selected, nav ul li button:hover {
+  filter: saturate(1);
+}
+nav ul li button:focus {
+  outline: none;
 }
 
 .content {
@@ -197,9 +253,9 @@ nav ul li {
   display: block;
 }
 .content p {
-  font-size: 1em;
-  line-height: 1.2em;
-  padding-bottom: 1em;
+  font-size: 1rem;
+  line-height: 1.4rem;
+  padding-bottom: 1rem;
 }
 
 /*# sourceMappingURL=main.css.map */
