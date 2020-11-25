@@ -161,22 +161,50 @@ header #image {
   background-color: #f2f2f7;
   border-radius: 100%;
   animation: helloworld 0.37s steps(7) forwards;
-  animation-delay: 0.5s;
+  animation-delay: 0.7s;
 }
 header #image:hover {
   background-position-x: 0px;
 }
-header h1 {
+header div {
+  text-align: center;
+}
+header div h1 {
   font-size: 2.4rem;
   padding-bottom: 0.3rem;
 }
-header h2 {
+header div h2 {
   font-size: 1.6rem;
   padding-bottom: 1.4rem;
 }
-header h3 {
+header div h3 {
   font-size: 1.1rem;
   font-style: italic;
+  padding-bottom: 1.5rem;
+}
+header ul {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+header ul li a {
+  font-size: 1rem;
+  text-decoration: none;
+}
+header ul li:nth-child(1) a {
+  color: #ff2215;
+}
+header ul li:nth-child(2) a {
+  color: #0d65c2;
+}
+header ul li:nth-child(3) a {
+  color: #24292f;
+}
+header ul li:nth-child(4) a {
+  color: #1e1f26;
+}
+header ul li:nth-child(5) a {
+  color: #1d8ff4;
 }
 
 @keyframes helloworld {
@@ -187,36 +215,8 @@ header h3 {
     background-position-x: -1750px;
   }
 }
-#ext-links {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-#ext-links li a {
-  font-size: 1rem;
-}
-#ext-links li a:hover {
-  text-decoration: none;
-}
-#ext-links li:nth-child(1) a {
-  color: #f4b700;
-}
-#ext-links li:nth-child(2) a {
-  color: #0d65c2;
-}
-#ext-links li:nth-child(3) a {
-  color: #24292f;
-}
-#ext-links li:nth-child(4) a {
-  color: #1e1f26;
-}
-#ext-links li:nth-child(5) a {
-  color: #1d8ff4;
-}
-
 nav {
+  margin-top: 1.5rem;
   margin-bottom: 2rem;
 }
 nav ul {
