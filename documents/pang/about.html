@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Pang - À propos</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body id="about-body">
+        <!-- Title -->
+        <div id="title">
+            <h1>Bienvenue dans Pang Édition Deluxe Franccomtoise ! </h1>
+        </div>
+
+        <!-- game's rules -->
+        <div id="regles" class="hidden">
+            <div class="subtitle">
+                <h2>Règles du jeu</h2>
+            </div>
+
+            <div class="text_content">
+                <p>
+                    Votre mission, si vous l'acceptez, est de détruire tous les ballons, envoyés par le vil royaume de Bourgogne pour envahir les lieux notoires de Franche-Comté, en les éclatant avec votre grappin !<br>
+                    Attention, si un ballon vous touche, vous devrez recommencer le niveau... <br>
+                    <br>Pour vous aider dans cette tâche, les spécialités Franc-comtoises viendront vous préter main-forte lorsque vous éclaterez des ballons.
+                </p>
+            </div>
+        </div>
+
+        <!-- Bonus -->
+        <div id="bonus" class="hidden">        
+            <div class="subtitle">
+                <h2>Bonus</h2>
+            </div>
+
+            <div class="text_content">
+                <p>
+                    Voici la liste des bonus qui peuvent apparaître sur le terrain. Faites déferler toute la puissance de la gastronomie Franc-comtoise !
+                    <ul>
+                        <li>Bouteille de Pontarlier : Un bon verre de Pont a tendance à dédoubler la vue, ce qui permet de tirer un deuxième grappin avant que le premier ait disparu. </li>
+                        <br>
+                        <li>Saucisse de Morteau : permet de tirer un grappin qui, grâce à sa grasse saucisse, va s'accrocher à une surface dure et y rester pendant un court laps de temps</li>
+                        <br>
+                        <li>Dynamite : et boum, tous les ballons explosent à leur taille minimale en un clin d'oeil !</li>
+                        <br>
+                        <li>Meule de comté : protège le joueur d'un toucher de ballon grâce à une lourde et épaisse meule de comté</li>
+                        <br>
+                        <li>Cancoillotte comtoise : Englue tous les ballons et les empêche de bouger</li>
+                        <br>
+                        <li>Horloge comtoise : la maîtrise Franc-comtoise de la microtechnique vous permet de gagner 10 secondes sur le timer</li>
+                        <!--<li>Excès de vitesse du 70 : Le sang des conducteurs de Haute-Saône se met à couler dans vos veines, ce qui vous permet de gagner 10 secondes de temps supplémentaire </li> -->
+                    </ul> 
+                </p>
+            </div>
+        </div>
+
+
+        <!-- Commandes -->
+        <div id="commandes" class="hidden">
+            <div class="subtitle">
+                <h2>Commandes</h2>
+            </div>
+
+            <div class="text_content">
+                <p>
+                    <ul>    
+                        <li><strong>Touches directionnelles</strong> : Déplacement</li>
+                        <br>
+                        <li><strong>Barre d'espace</strong> : tir</li>
+                        <br>
+                        <li><strong>Entrée</strong> Insérer des crédit (rejouer)</li>
+                        <br>
+                        <li><strong>P</strong> : pause</li>
+                        <br>
+                        <li><strong>F11</strong> : plein écran</li>
+                        <br>
+                        <li><strong>M</strong>: retour au menu</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+
+        <!-- JS -->
+        <script>
+            /**
+             * Get the value of a parameter set in the URL
+             * @params {String} paramSearch - Name of the parameter
+             * 
+             * @return {String} The value of the parameter
+             */
+            function getURL(paramSearch) {
+                // variables
+                var currentLocation, params, index;
+
+                // current URL (after ?)
+                currentLocation = window.location.search;
+                currentLocation = currentLocation.split('?')[1];
+                
+                // parameters
+                params = currentLocation.split('=');
+
+                // research of the parameter
+                index = params.indexOf(paramSearch);
+                if(index == -1) {
+                    return "";
+                }
+                return params[index+1];
+            }
+
+            // look for the param named 'part'
+            var paramPart = getURL('part');
+
+            // Text which will be written
+            var regles = document.getElementById('regles');
+            var bonus = document.getElementById('bonus');
+            var commandes = document.getElementById('commandes');
+            switch(paramPart) {
+                case "regles":
+                    regles.removeAttribute('class');
+                    document.title = "Pang - Règles";
+                    break;
+                case "bonus":
+                    bonus.removeAttribute('class');
+                    document.title = "Pang - Bonus";
+                    break;
+                case "commandes":
+                    commandes.removeAttribute('class');
+                    document.title = "Pang - Commandes";
+                    break;  
+            }
+        </script>
+    </body>
+</html>

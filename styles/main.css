@@ -257,5 +257,17 @@ nav ul li button:focus {
   line-height: 1.4rem;
   padding-bottom: 1rem;
 }
+.content a {
+  background-image: linear-gradient(to top, #fff0c1, #fff0c1);
+  background-repeat: no-repeat;
+  background-position-y: bottom;
+  background-size: 100% 100%;
+  text-decoration: none;
+  color: black;
+  transition: background-size 0.2s ease-in-out;
+}
+.content a:hover {
+  background-size: 100% 40%;
+}
 
 /*# sourceMappingURL=main.css.map */
