@@ -1,0 +1,124 @@
+/*
+ * Jeu Pang (Avril 2019)
+ * script.js
+ * 
+ * Author: Fabian Devel, Nathanaël Houn, Valentin Perignon
+ */
+
+ /* Général */
+ html, body {
+     margin: 0;
+     padding: 0;
+ }
+
+ body {
+    background-color: white;
+    font-family: sans-serif;
+ }
+
+ h1 {
+     font-size: 20px;
+ }
+
+/* About body */
+#about-body {
+    background-color: rgba(0, 100, 240, 0.4);
+}
+
+/* Title */
+#title {
+    padding: 20px 20px;
+    background-color: rgb(0, 100, 240);
+}
+
+#title h1 {
+    margin: 0;
+    font-weight: lighter;
+    font-size: 20px;
+    color: #FFF;
+}
+
+/* Subtitle */
+.subtitle {
+    padding: 10px 20px;
+    background: rgb(0, 60, 255);
+}
+
+.subtitle h2 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 17px;
+    color: #FFF;
+}
+
+ /* Content */
+#content {
+    width: 1086px;
+    margin: 50px auto;
+}
+
+/* About */
+#about {
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Text content */
+.text_content {
+    padding: 5px 20px;
+}
+
+/* Cow lists */
+ul {
+    padding-left: 0px;
+}
+
+li {
+    display: list-item;
+    list-style: disc url('assets/cow.png') inside;
+}
+
+/* Canvas */
+#cvs {
+    border: 3px solid #000a12;
+    border-radius: 10px;
+    background: url('assets/bg_fac.jpg');
+}
+
+/* Hidden block */
+.hidden {
+    display: none;
+}
+
+/* Old buttons
+ * source : https://codepen.io/shdwjk/pen/OWpbNN
+ */
+.oldkey {
+    border-radius: 10px;
+    background: -webkit-radial-gradient( center, #FAF6F3,#FAF6F3, #D8C8B7);
+    border-style: solid;
+    border-width: 8px;
+    border-color: #E7DBD0 #DACABB #BFAF9D #F6EDE5;
+    display: inline-block;
+    min-width: 3em;
+    height: 3em;
+    line-height: 3em;
+    font-weight: bold;
+    font-family: sans-serif;
+    vertical-align: middle;
+    text-align: center;
+    color: #222;
+    margin: .1em;
+    cursor: pointer;
+
+}
+
+.oldkey:hover {
+    box-shadow: .1em .1em .3em .2em #666;
+    background: -webkit-radial-gradient( center,#FAF6F3,#FAF6F3, #BFAF9D);
+}
+
+.oldkey span {
+    padding-left: 1em;
+    padding-right: 1em;
+ }

@@ -10,4 +10,22 @@
     line-height: 1.4rem;
     padding-bottom: 1rem;
   }
+
+  a {
+    background-image: linear-gradient(
+      to top,
+      lighten($color-yellow, 40%),
+      lighten($color-yellow, 40%)
+    );
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-size: 100% 100%;
+    text-decoration: none;
+    color: black;
+    transition: background-size 0.2s ease-in-out;
+
+    &:hover {
+      background-size: 100% 40%;
+    }
+  }
 }
