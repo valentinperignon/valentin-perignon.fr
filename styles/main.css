@@ -135,6 +135,7 @@ table {
 
 body {
   font-family: "Raleway", sans-serif;
+  padding: 3em 0;
 }
 
 header,
@@ -150,10 +151,13 @@ header {
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  margin-top: 3rem;
   border-radius: 20px;
 }
-header #image {
+header #image-container {
+  flex-grow: 1;
+  margin-bottom: 0.7rem;
+}
+header #image-container #image {
   width: 250px;
   height: 250px;
   background-image: url("../images/animation.png");
@@ -162,22 +166,24 @@ header #image {
   border-radius: 100%;
   animation: helloworld 0.37s steps(7) forwards;
   animation-delay: 0.7s;
+  margin: auto;
 }
-header #image:hover {
+header #image-container #image:hover {
   background-position-x: 0px;
 }
-header div {
+header #title {
   text-align: center;
+  flex-grow: 2;
 }
-header div h1 {
+header #title h1 {
   font-size: 2.4rem;
   padding-bottom: 0.3rem;
 }
-header div h2 {
+header #title h2 {
   font-size: 1.6rem;
   padding-bottom: 1.4rem;
 }
-header div h3 {
+header #title h3 {
   font-size: 1.1rem;
   font-style: italic;
   padding-bottom: 1.5rem;
@@ -216,7 +222,7 @@ header ul li:nth-child(5) a {
   }
 }
 nav {
-  margin-top: 1.5rem;
+  margin-top: 0.7rem;
   margin-bottom: 2rem;
 }
 nav ul {

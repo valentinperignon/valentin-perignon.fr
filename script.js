@@ -18,3 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+console.log(
+  "Hey! I am looking for an internship from 04-06-21 :)\nFeel free to contact me!"
+);
