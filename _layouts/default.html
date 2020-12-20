@@ -74,17 +74,13 @@
       <!-- navigation -->
       <nav>
         <ul>
-          <li>
-            <button class="selected" data-name="about-me">
-              &#x1F590;&#x1F3FB; About Me
-            </button>
-          </li>
-          <li>
-            <button data-name="my-projects">&#x1F4BB; My Projects</button>
-          </li>
-          <li>
-            <button data-name="my-skills">&#x1F4AA;&#x1F3FB; My Skills</button>
-          </li>
+          {% for item in site.data.categories %}
+            <li>
+              <button data-name="{{ item.id }}" {% if item.default %}class="selected"{% endif %}>
+                {{ item.icon }} {{ item.name }}
+              </button>
+            </li>
+          {% endfor %}
         </ul>
       </nav>
 
