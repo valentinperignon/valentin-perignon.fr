@@ -2,13 +2,16 @@
   icon: "&#x1F590;&#x1F3FB;"
   default: true
   id: about-me
+  file: about-me.md
 
 - name: My Projects
   icon: "&#x1F4BB;"
   default: false
   id: my-projects
+  file: my-projects.md
 
 - name: My Skills
   icon: "&#x1F4AA;&#x1F3FB;"
   default: false
   id: my-skills
+  file: my-skills.md

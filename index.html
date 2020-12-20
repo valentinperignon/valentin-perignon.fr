@@ -1,0 +1,9 @@
+---
+layout: default
+title: Valentin Perignon
+---
+{% for item in site.data.categories %}
+  <div class="content {% if item.default %}display-content{% endif %}" id="{{ item.id }}">
+    {% include {{ item.file }} %}
+  </div>
+{% endfor %}
