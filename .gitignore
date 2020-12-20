@@ -1,3 +1,5 @@
 .DS_Store
 *.txt
 node_modules
+.jekyll-cache
+_site

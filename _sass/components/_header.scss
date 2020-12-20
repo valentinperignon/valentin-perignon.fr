@@ -14,7 +14,7 @@ header {
     #image {
       width: $picture-size;
       height: $picture-size;
-      background-image: url("../images/animation.png");
+      background-image: url("/assets/images/animation.png");
       background-size: auto $picture-size;
       background-color: $color-gray;
       border-radius: 100%;
