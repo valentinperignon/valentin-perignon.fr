@@ -1,5 +1,3 @@
----
----
 Hello! My name is Valentin Perignon. I am a 20-year-old third year
 computer science student at the University of Franche-Comté, in France
 &#x1F1EB;&#x1F1F7;.

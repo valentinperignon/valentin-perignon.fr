@@ -71,20 +71,6 @@
 
     <!-- Main content -->
     <main>
-      <!-- navigation -->
-      <nav>
-        <ul>
-          {% for item in site.data.categories %}
-            <li>
-              <button data-name="{{ item.id }}" {% if item.default %}class="selected"{% endif %}>
-                {{ item.icon }} {{ item.name }}
-              </button>
-            </li>
-          {% endfor %}
-        </ul>
-      </nav>
-
-      <!-- content -->
       {{ content }}
     </main>
   </body>

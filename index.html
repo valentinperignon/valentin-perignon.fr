@@ -2,8 +2,23 @@
 layout: default
 title: Valentin Perignon
 ---
+<!-- navigation -->
+<nav>
+  <ul>
+    {% for item in site.data.categories %}
+      <li>
+        <button data-name="{{ item.id }}" {% if item.default %}class="selected"{% endif %}>
+          {{ item.icon }} {{ item.name }}
+        </button>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>
+
+<!-- categories -->
 {% for item in site.data.categories %}
   <div class="content {% if item.default %}display-content{% endif %}" id="{{ item.id }}">
-    {% include {{ item.file }} %}
+    {% capture my_include %}{% include {{ item.file }} %}{% endcapture %}
+    {{ my_include | markdownify }}
   </div>
 {% endfor %}

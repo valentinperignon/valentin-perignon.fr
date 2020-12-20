@@ -1,3 +1,3 @@
-# Valentin Perignon : Personal website
+# Valentin Perignon : personal website
 
 Built with *Jekyll*.
