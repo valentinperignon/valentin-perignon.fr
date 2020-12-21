@@ -1,0 +1,14 @@
+- icon: far fa-file-pdf
+  link: /assets/docs/resume.pdf
+
+- icon: fab fa-linkedin-in
+  link: https://www.linkedin.com/in/valentin-perignon-informatique/
+
+- icon: fab fa-github
+  link: https://github.com/valentinperignon
+
+- icon: fab fa-codepen
+  link: https://codepen.io/valentin-lab
+
+- icon: far fa-envelope
+  link: mailto:valentin.perignon@orange.fr
