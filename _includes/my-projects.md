@@ -7,9 +7,9 @@ duels between students to learn easily.
 the Apple ecosystem. In summer 2019, I learned how to develop an iOS
 app by discovering Swift, SwiftUI and Xcode. I then published in the
 App Store an application,
-(SchoolExams)[https://apps.apple.com/us/app/schoolexams/id1527399525]
+[SchoolExams](https://apps.apple.com/us/app/schoolexams/id1527399525])
 to help students keep track of their grades.
 
 More? You can visit
-(GitHub)[https://github.com/valentinperignon] ro
-(CodePen)[https://codepen.io/valentin-lab]!
+[GitHub](https://github.com/valentinperignon) ro
+[CodePen](https://codepen.io/valentin-lab])!

@@ -1,0 +1,23 @@
+#error404 {
+  display: flex;
+  padding: 0;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  
+  video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    z-index: -100;
+  }
+
+  main {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+}
