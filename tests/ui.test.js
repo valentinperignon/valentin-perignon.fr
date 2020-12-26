@@ -31,6 +31,7 @@ it("checks the external links in the header", async function () {
   this.timeout(10e5);
   const links = ["resume", "linkedin", "github", "codepen"];
 
+  await webdriver.sleep(500);
   for (let i = 0; i < links.length; i++) {
     await clickExtLink(i);
     const urlRes = await checkUrl(links[i]);
