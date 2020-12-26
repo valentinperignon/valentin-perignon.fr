@@ -56,7 +56,6 @@ RSpec.describe("User Interface") do
     end
   end
 
-
   it("checks the links on the Project tab") do
     links = ["schoolexams", "github", "codepen"]
     change_tab(driver, 1)

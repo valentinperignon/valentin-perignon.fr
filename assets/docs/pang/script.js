@@ -1,3506 +1,2185 @@
-/**
- * Jeu Pang (Avril 2019)
- * Projet d'Initiation à l'Ingénierie Logicielle
- * script.js
- *
- * @author Fabian Devel, Nathanaël Houn, Valentin Perignon
- */
-
-// -----------------------------------------------------------------------------
-// ################################ Game design ################################
-// -----------------------------------------------------------------------------
-
-/**
- * Array of all the platforms.
- * With position (x and y), width, height, height, exist and detructibility
- */
 const PLATFORMS_LIST = {
-	level1: [
-		{
-			position: {
-				x: 510,
-				y: 450
-			},
-			width: 60,
-			height: 158,
-			exist: true,
-			isDestructible: false
-		}
-	],
-	level2: [
-		{
-			position: {
-				x: 830,
-				y: 200
-			},
-			width: 150,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 635,
-				y: 200
-			},
-			width: 80,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 490,
-				y: 200
-			},
-			width: 80,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 350,
-				y: 200
-			},
-			width: 80,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 100,
-				y: 200
-			},
-			width: 150,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		}
-	],
-
-	level3: [
-		//horizontal platforms
-		{
-			position: {
-				x: 650,
-				y: 200
-			},
-			width: 80,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 550,
-				y: 200
-			},
-			width: 80,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 450,
-				y: 200
-			},
-			width: 80,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 350,
-				y: 200
-			},
-			width: 80,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		},
-
-		//vertical platforms
-		{
-			position: {
-				x: 750,
-				y: 30
-			},
-			width: 30,
-			height: 100,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 750,
-				y: 135
-			},
-			width: 30,
-			height: 95,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 300,
-				y: 30
-			},
-			width: 30,
-			height: 100,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 300,
-				y: 135
-			},
-			width: 30,
-			height: 95,
-			exist: true,
-			isDestructible: true
-		}
-	],
-	level4: [
-		// vertical platforms
-		{
-			position: {
-				x: 200,
-				y: 0
-			},
-			width: 16,
-			height: 200,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 200,
-				y: 200
-			},
-			width: 16,
-			height: 100,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 200,
-				y: 300
-			},
-			width: 16,
-			height: 100,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 416,
-				y: 0
-			},
-			width: 16,
-			height: 200,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 416,
-				y: 200
-			},
-			width: 16,
-			height: 100,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 416,
-				y: 300
-			},
-			width: 16,
-			height: 100,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 632,
-				y: 0
-			},
-			width: 16,
-			height: 200,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 632,
-				y: 200
-			},
-			width: 16,
-			height: 100,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 632,
-				y: 300
-			},
-			width: 16,
-			height: 100,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 848,
-				y: 0
-			},
-			width: 16,
-			height: 200,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 848,
-				y: 200
-			},
-			width: 16,
-			height: 100,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 848,
-				y: 300
-			},
-			width: 16,
-			height: 100,
-			exist: true,
-			isDestructible: true
-		}
-	],
-	level5: [
-		//horizontal platforms
-		{
-			position: {
-				x: 990,
-				y: 400
-			},
-			width: 90,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 820,
-				y: 400
-			},
-			width: 80,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 620,
-				y: 400
-			},
-			width: 200,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 540,
-				y: 400
-			},
-			width: 80,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 460,
-				y: 400
-			},
-			width: 80,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 260,
-				y: 400
-			},
-			width: 200,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 180,
-				y: 400
-			},
-			width: 80,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 0,
-				y: 400
-			},
-			width: 90,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		}
-	],
-	level6: [
-		//horizontal platforms
-
-		{
-			position: {
-				x: 180,
-				y: 400
-			},
-			width: 900,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 0,
-				y: 400
-			},
-			width: 90,
-			height: 30,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 0,
-				y: 200
-			},
-			width: 150,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 150,
-				y: 200
-			},
-			width: 150,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 300,
-				y: 200
-			},
-			width: 150,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 450,
-				y: 200
-			},
-			width: 150,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 600,
-				y: 200
-			},
-			width: 150,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 750,
-				y: 200
-			},
-			width: 150,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 990,
-				y: 200
-			},
-			width: 150,
-			height: 30,
-			exist: true,
-			isDestructible: true
-		}
-	],
-	level7: [
-		// Vertical platforms
-		{
-			position: {
-				x: 216,
-				y: 300
-			},
-			width: 80,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 310,
-				y: 300
-			},
-			width: 80,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 405,
-				y: 300
-			},
-			width: 80,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 595,
-				y: 300
-			},
-			width: 80,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 690,
-				y: 300
-			},
-			width: 80,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 785,
-				y: 300
-			},
-			width: 80,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-
-		//Vertical platforms
-		{
-			position: {
-				x: 530,
-				y: 130
-			},
-			width: 20,
-			height: 75,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 530,
-				y: 215
-			},
-			width: 20,
-			height: 75,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 530,
-				y: 330
-			},
-			width: 20,
-			height: 75,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 530,
-				y: 415
-			},
-			width: 20,
-			height: 75,
-			exist: true,
-			isDestructible: false
-		}
-	],
-	level8: [
-		{
-			position: {
-				x: 0,
-				y: 150
-			},
-			width: 110,
-			height: 58,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 200,
-				y: 300
-			},
-			width: 110,
-			height: 58,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 400,
-				y: 450
-			},
-			width: 95,
-			height: 58,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 585,
-				y: 450
-			},
-			width: 95,
-			height: 58,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 770,
-				y: 300
-			},
-			width: 110,
-			height: 58,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 970,
-				y: 150
-			},
-			width: 200,
-			height: 58,
-			exist: true,
-			isDestructible: false
-		}
-	],
-	level9: [],
-	level10: [
-		//horizontal platforms
-
-		{
-			//first layer of platform
-			position: {
-				x: 100,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 150,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 200,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 250,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 300,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 350,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 400,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 450,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 500,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 550,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 600,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 650,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 700,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 750,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 800,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 850,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 900,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 950,
-				y: 90
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			//Second layer of platform
-			position: {
-				x: 200,
-				y: 300
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 250,
-				y: 300
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 300,
-				y: 300
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 350,
-				y: 300
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 400,
-				y: 300
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 600,
-				y: 300
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 650,
-				y: 300
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 700,
-				y: 300
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 750,
-				y: 300
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-		{
-			position: {
-				x: 800,
-				y: 300
-			},
-			width: 45,
-			height: 20,
-			exist: true,
-			isDestructible: false
-		},
-
-		// vertical platforms
-		{
-			position: {
-				x: 175,
-				y: 115
-			},
-			width: 20,
-			height: 90,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 175,
-				y: 207
-			},
-			width: 20,
-			height: 90,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 850,
-				y: 115
-			},
-			width: 20,
-			height: 90,
-			exist: true,
-			isDestructible: true
-		},
-		{
-			position: {
-				x: 850,
-				y: 207
-			},
-			width: 20,
-			height: 90,
-			exist: true,
-			isDestructible: true
-		}
-	]
-};
-
-/**
- * Array of all the ladders.
- * With position (x and y), width and height
- */
-const LADDER_WIDTH = 90;
-const LADDERS_LIST = {
-	level1: [
-		{
-			position: {
-				x: 410,
-				y: 450
-			},
-			width: LADDER_WIDTH,
-			height: 158
-		},
-		{
-			position: {
-				x: 580,
-				y: 450
-			},
-			width: LADDER_WIDTH,
-			height: 158
-		}
-	],
-	level2: [],
-	level3: [],
-	level4: [],
-	level5: [
-		{
-			position: {
-				x: 90,
-				y: 400
-			},
-			width: LADDER_WIDTH,
-			height: 208
-		},
-		{
-			position: {
-				x: 900,
-				y: 400
-			},
-			width: LADDER_WIDTH,
-			height: 208
-		}
-	],
-	level6: [
-		{
-			position: {
-				x: 90,
-				y: 400
-			},
-			width: LADDER_WIDTH,
-			height: 208
-		},
-		{
-			position: {
-				x: 900,
-				y: 200
-			},
-			width: LADDER_WIDTH,
-			height: 200
-		}
-	],
-	level7: [],
-	level8: [
-		{
-			position: {
-				x: 110,
-				y: 150
-			},
-			width: LADDER_WIDTH,
-			height: 208
-		},
-		{
-			position: {
-				x: 310,
-				y: 300
-			},
-			width: LADDER_WIDTH,
-			height: 208
-		},
-		{
-			position: {
-				x: 495,
-				y: 450
-			},
-			width: LADDER_WIDTH,
-			height: 208
-		},
-		{
-			position: {
-				x: 680,
-				y: 300
-			},
-			width: LADDER_WIDTH,
-			height: 208
-		},
-		{
-			position: {
-				x: 880,
-				y: 150
-			},
-			width: LADDER_WIDTH,
-			height: 208
-		}
-	],
-	level9: [],
-	level10: []
-};
-
-/**
- * List of size of balloons.
- * With the umber, the radius and velocity
- */
-const BALLOON_SIZE = [
-	{
-		number: 0,
-		radius: 0,
-		Yvelocity: 0
-	},
-	{
-		number: 1,
-		radius: 15,
-		Yvelocity: -6
-	},
-	{
-		number: 2,
-		radius: 30,
-		Yvelocity: -7
-	},
-	{
-		number: 3,
-		radius: 40,
-		Yvelocity: -8
-	},
-	{
-		number: 4,
-		radius: 50,
-		Yvelocity: -9.5
-	}
-];
-
-/**
- * Array of all the balloons.
- * With center position (x and y), radius, velocity (x and y), and ballons gravity
- */
-const BALLOONS_LIST = {
-	level1: [
-		{
-			center: { x: 400, y: 30 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: 1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		}
-	],
-
-	level2: [
-		{
-			center: { x: 400, y: 30 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: -0.8, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 500, y: 30 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: 0.8, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		}
-	],
-
-	level3: [
-		{
-			center: { x: 400, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: -0.8, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 500, y: 30 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: 0.5, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 600, y: 30 },
-			size: BALLOON_SIZE[2],
-			velocity: { x: 1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		}
-	],
-	level4: [
-		{
-			center: { x: 300, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: -1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 525, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 0, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 750, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		}
-	],
-	level5: [
-		{
-			center: { x: 400, y: 30 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: -0.75, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 500, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 600, y: 30 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: 0.75, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		}
-	],
-	level6: [
-		{
-			center: { x: 200, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 400, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: -1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 600, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 800, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: -1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		}
-	],
-	level7: [
-		{
-			center: { x: 325, y: 90 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: -1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 520, y: 30 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: -0.6, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 560, y: 30 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: 0.6, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 750, y: 90 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: 1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		}
-	],
-	level8: [
-		{
-			center: { x: 60, y: 100 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: 1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 240, y: 260 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 430, y: 412 },
-			size: BALLOON_SIZE[2],
-			velocity: { x: -1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 645, y: 412 },
-			size: BALLOON_SIZE[2],
-			velocity: { x: 1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 820, y: 260 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 1020, y: 100 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: -1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		}
-	],
-	level9: [
-		{
-			center: { x: 0, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 0, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 140, y: 30 },
-			size: BALLOON_SIZE[2],
-			velocity: { x: 0, y: 0.8 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 240, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 0, y: 1.6 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 340, y: 30 },
-			size: BALLOON_SIZE[2],
-			velocity: { x: 0, y: 2.4 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 440, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 0, y: 3.2 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		// Middle
-		{
-			center: { x: 640, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 0, y: 3.2 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 740, y: 30 },
-			size: BALLOON_SIZE[2],
-			velocity: { x: 0, y: 2.4 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 840, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 0, y: 1.6 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 940, y: 30 },
-			size: BALLOON_SIZE[2],
-			velocity: { x: 0, y: 0.8 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 1040, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 0, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		}
-	],
-	level10: [
-		{
-			center: { x: 480, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: -1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 600, y: 30 },
-			size: BALLOON_SIZE[3],
-			velocity: { x: 1, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 350, y: 200 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: 0.5, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		},
-		{
-			center: { x: 750, y: 200 },
-			size: BALLOON_SIZE[4],
-			velocity: { x: -0.5, y: 0 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		}
-	]
-};
-
-// ---------------------------------------------------------------------------
-// ################################ Variables ################################
-// ---------------------------------------------------------------------------
-
-/** Context */
-var context = null;
-
-/** Level number */
-var numLevel = 0;
+    level1: [
+      {
+        position: { x: 510, y: 450 },
+        width: 60,
+        height: 158,
+        exist: !0,
+        isDestructible: !1,
+      },
+    ],
+    level2: [
+      {
+        position: { x: 830, y: 200 },
+        width: 150,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 635, y: 200 },
+        width: 80,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 490, y: 200 },
+        width: 80,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 350, y: 200 },
+        width: 80,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 100, y: 200 },
+        width: 150,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+    ],
+    level3: [
+      {
+        position: { x: 650, y: 200 },
+        width: 80,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 550, y: 200 },
+        width: 80,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 450, y: 200 },
+        width: 80,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 350, y: 200 },
+        width: 80,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 750, y: 30 },
+        width: 30,
+        height: 100,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 750, y: 135 },
+        width: 30,
+        height: 95,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 300, y: 30 },
+        width: 30,
+        height: 100,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 300, y: 135 },
+        width: 30,
+        height: 95,
+        exist: !0,
+        isDestructible: !0,
+      },
+    ],
+    level4: [
+      {
+        position: { x: 200, y: 0 },
+        width: 16,
+        height: 200,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 200, y: 200 },
+        width: 16,
+        height: 100,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 200, y: 300 },
+        width: 16,
+        height: 100,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 416, y: 0 },
+        width: 16,
+        height: 200,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 416, y: 200 },
+        width: 16,
+        height: 100,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 416, y: 300 },
+        width: 16,
+        height: 100,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 632, y: 0 },
+        width: 16,
+        height: 200,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 632, y: 200 },
+        width: 16,
+        height: 100,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 632, y: 300 },
+        width: 16,
+        height: 100,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 848, y: 0 },
+        width: 16,
+        height: 200,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 848, y: 200 },
+        width: 16,
+        height: 100,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 848, y: 300 },
+        width: 16,
+        height: 100,
+        exist: !0,
+        isDestructible: !0,
+      },
+    ],
+    level5: [
+      {
+        position: { x: 990, y: 400 },
+        width: 90,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 820, y: 400 },
+        width: 80,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 620, y: 400 },
+        width: 200,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 540, y: 400 },
+        width: 80,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 460, y: 400 },
+        width: 80,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 260, y: 400 },
+        width: 200,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 180, y: 400 },
+        width: 80,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 0, y: 400 },
+        width: 90,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+    ],
+    level6: [
+      {
+        position: { x: 180, y: 400 },
+        width: 900,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 0, y: 400 },
+        width: 90,
+        height: 30,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 0, y: 200 },
+        width: 150,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 150, y: 200 },
+        width: 150,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 300, y: 200 },
+        width: 150,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 450, y: 200 },
+        width: 150,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 600, y: 200 },
+        width: 150,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 750, y: 200 },
+        width: 150,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 990, y: 200 },
+        width: 150,
+        height: 30,
+        exist: !0,
+        isDestructible: !0,
+      },
+    ],
+    level7: [
+      {
+        position: { x: 216, y: 300 },
+        width: 80,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 310, y: 300 },
+        width: 80,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 405, y: 300 },
+        width: 80,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 595, y: 300 },
+        width: 80,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 690, y: 300 },
+        width: 80,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 785, y: 300 },
+        width: 80,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 530, y: 130 },
+        width: 20,
+        height: 75,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 530, y: 215 },
+        width: 20,
+        height: 75,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 530, y: 330 },
+        width: 20,
+        height: 75,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 530, y: 415 },
+        width: 20,
+        height: 75,
+        exist: !0,
+        isDestructible: !1,
+      },
+    ],
+    level8: [
+      {
+        position: { x: 0, y: 150 },
+        width: 110,
+        height: 58,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 200, y: 300 },
+        width: 110,
+        height: 58,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 400, y: 450 },
+        width: 95,
+        height: 58,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 585, y: 450 },
+        width: 95,
+        height: 58,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 770, y: 300 },
+        width: 110,
+        height: 58,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 970, y: 150 },
+        width: 200,
+        height: 58,
+        exist: !0,
+        isDestructible: !1,
+      },
+    ],
+    level9: [],
+    level10: [
+      {
+        position: { x: 100, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 150, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 200, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 250, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 300, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 350, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 400, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 450, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 500, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 550, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 600, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 650, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 700, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 750, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 800, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 850, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 900, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 950, y: 90 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 200, y: 300 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 250, y: 300 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 300, y: 300 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 350, y: 300 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 400, y: 300 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 600, y: 300 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 650, y: 300 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 700, y: 300 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 750, y: 300 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 800, y: 300 },
+        width: 45,
+        height: 20,
+        exist: !0,
+        isDestructible: !1,
+      },
+      {
+        position: { x: 175, y: 115 },
+        width: 20,
+        height: 90,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 175, y: 207 },
+        width: 20,
+        height: 90,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 850, y: 115 },
+        width: 20,
+        height: 90,
+        exist: !0,
+        isDestructible: !0,
+      },
+      {
+        position: { x: 850, y: 207 },
+        width: 20,
+        height: 90,
+        exist: !0,
+        isDestructible: !0,
+      },
+    ],
+  },
+  LADDER_WIDTH = 90,
+  LADDERS_LIST = {
+    level1: [
+      { position: { x: 410, y: 450 }, width: 90, height: 158 },
+      { position: { x: 580, y: 450 }, width: 90, height: 158 },
+    ],
+    level2: [],
+    level3: [],
+    level4: [],
+    level5: [
+      { position: { x: 90, y: 400 }, width: 90, height: 208 },
+      { position: { x: 900, y: 400 }, width: 90, height: 208 },
+    ],
+    level6: [
+      { position: { x: 90, y: 400 }, width: 90, height: 208 },
+      { position: { x: 900, y: 200 }, width: 90, height: 200 },
+    ],
+    level7: [],
+    level8: [
+      { position: { x: 110, y: 150 }, width: 90, height: 208 },
+      { position: { x: 310, y: 300 }, width: 90, height: 208 },
+      { position: { x: 495, y: 450 }, width: 90, height: 208 },
+      { position: { x: 680, y: 300 }, width: 90, height: 208 },
+      { position: { x: 880, y: 150 }, width: 90, height: 208 },
+    ],
+    level9: [],
+    level10: [],
+  },
+  BALLOON_SIZE = [
+    { number: 0, radius: 0, Yvelocity: 0 },
+    { number: 1, radius: 15, Yvelocity: -6 },
+    { number: 2, radius: 30, Yvelocity: -7 },
+    { number: 3, radius: 40, Yvelocity: -8 },
+    { number: 4, radius: 50, Yvelocity: -9.5 },
+  ],
+  BALLOONS_LIST = {
+    level1: [
+      {
+        center: { x: 400, y: 30 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: 1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+    ],
+    level2: [
+      {
+        center: { x: 400, y: 30 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: -0.8, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 500, y: 30 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: 0.8, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+    ],
+    level3: [
+      {
+        center: { x: 400, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: -0.8, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 500, y: 30 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: 0.5, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 600, y: 30 },
+        size: BALLOON_SIZE[2],
+        velocity: { x: 1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+    ],
+    level4: [
+      {
+        center: { x: 300, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: -1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 525, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 0, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 750, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+    ],
+    level5: [
+      {
+        center: { x: 400, y: 30 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: -0.75, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 500, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 600, y: 30 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: 0.75, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+    ],
+    level6: [
+      {
+        center: { x: 200, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 400, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: -1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 600, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 800, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: -1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+    ],
+    level7: [
+      {
+        center: { x: 325, y: 90 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: -1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 520, y: 30 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: -0.6, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 560, y: 30 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: 0.6, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 750, y: 90 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: 1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+    ],
+    level8: [
+      {
+        center: { x: 60, y: 100 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: 1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 240, y: 260 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 430, y: 412 },
+        size: BALLOON_SIZE[2],
+        velocity: { x: -1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 645, y: 412 },
+        size: BALLOON_SIZE[2],
+        velocity: { x: 1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 820, y: 260 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 1020, y: 100 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: -1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+    ],
+    level9: [
+      {
+        center: { x: 0, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 0, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 140, y: 30 },
+        size: BALLOON_SIZE[2],
+        velocity: { x: 0, y: 0.8 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 240, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 0, y: 1.6 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 340, y: 30 },
+        size: BALLOON_SIZE[2],
+        velocity: { x: 0, y: 2.4 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 440, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 0, y: 3.2 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 640, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 0, y: 3.2 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 740, y: 30 },
+        size: BALLOON_SIZE[2],
+        velocity: { x: 0, y: 2.4 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 840, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 0, y: 1.6 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 940, y: 30 },
+        size: BALLOON_SIZE[2],
+        velocity: { x: 0, y: 0.8 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 1040, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 0, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+    ],
+    level10: [
+      {
+        center: { x: 480, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: -1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 600, y: 30 },
+        size: BALLOON_SIZE[3],
+        velocity: { x: 1, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 350, y: 200 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: 0.5, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+      {
+        center: { x: 750, y: 200 },
+        size: BALLOON_SIZE[4],
+        velocity: { x: -0.5, y: 0 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      },
+    ],
+  };
+var context = null,
+  numLevel = 0;
 const MAX_LEVEL = 10;
-
-/**
- * Variables about game state.
- * With focus, pause, victory and defeat
- */
-var isOnFocus = true;
-var pause = false;
-var victory = false;
-var defeat = false;
-var isInvincible = false;
-var easterEgg = false;
-
-/** Variables about timer */
-var timer = 100;
-var balloonsFreezeTimer = Date.now();
-var areBalloonsFreeze = false;
-var shieldTimer = Date.now();
-var playerBlinkTimer = Date.now();
-var balloonBlinkTimer = Date.now();
-
-/** An array of all the balloons in the game
- * With the position, the radius, the velocity, gravity and the color
- */
-var balloons = [];
-
-/** Balloons related variables */
+var isOnFocus = !0,
+  pause = !1,
+  victory = !1,
+  defeat = !1,
+  isInvincible = !1,
+  easterEgg = !1,
+  timer = 100,
+  balloonsFreezeTimer = Date.now(),
+  areBalloonsFreeze = !1,
+  shieldTimer = Date.now(),
+  playerBlinkTimer = Date.now(),
+  balloonBlinkTimer = Date.now(),
+  balloons = [];
 const BALLOON_SPEED = 0.1;
-
-/** Date of the last update */
-var lastUpdate = Date.now();
-
-/** A player
- * With his position (x and y), speed (x and y), height, width, power on, shield, lives number and color */
-var player = {
-	position: { x: 0, y: 0 },
-	speed: { x: 0, y: 0 },
-	height: 0,
-	width: 0,
-	powerOn: 0,
-	shieldOn: false,
-	score: 0,
-	livesNumber: 3,
-	color: "blue"
-};
-const PLAYER_SPEED = 500;
-const GRAVITY = { x: 0, y: 1500 };
-var isGravity = 0;
-var player_last_direction = 0;
-
-/**
- * Array of weapons.
- * With type (0: is not active), position, length and shooting
- */
-var weapons = [];
-
-/** Weapons related variables */
-	// Hook
-const GRAPPLE_HOOK_NUMBER = 1;
-const DOUBLE_HOOK_NUMBER = 2;
-const TRIDENT_NUMBER = 3;
-const HOOK_SPEED = 0.3;
-const BULLET_SPEED = 0.3;
-const HOOK_WITDH = 5;
-	// Other weapons
-const GUN_NUMBER = 4;
-
-/** All the platforms */
-var platforms = [];
-
-/** Ladders in the game */
-var ladders = [];
-
-/** Clik with the mouse */
-var clic = { x: 0, y: 0 };
-
-/** Bonus items array */
-var items = [];
-
-/** Variables about items */
-const GRAPPLE_HOOK_ITEM = GRAPPLE_HOOK_NUMBER; //1
-const DOUBLE_HOOK_ITEM = DOUBLE_HOOK_NUMBER; //2
-const TRIDENT_ITEM = TRIDENT_NUMBER; //3
-const GUN_ITEM = GUN_NUMBER;
-const TIMER_BOOST_ITEM = 5;
-const DYNAMITE_ITEM = 6;
-const FREEZE_ITEM = 7;
-const SHIELD_ITEM = 8;
-const MAX_ITEM = 8;
-
-/** Variables about menu's buttons */
-var margin = 60;
-var marginButton = 75;
-var widthButton = 132;
-var heightButton = 40;
-
-/** Constants for the graphical part */
-const DESTRUCTIBLE_PLATFORM_COLOR = "#f47b3e";
-
-const PLATFORM_COLOR = "#a5260a";
-const LADDERS_IMAGE = new Image();
+var lastUpdate = Date.now(),
+  player = {
+    position: { x: 0, y: 0 },
+    speed: { x: 0, y: 0 },
+    height: 0,
+    width: 0,
+    powerOn: 0,
+    shieldOn: !1,
+    score: 0,
+    livesNumber: 3,
+    color: "blue",
+  };
+const PLAYER_SPEED = 500,
+  GRAVITY = { x: 0, y: 1500 };
+var isGravity = 0,
+  player_last_direction = 0,
+  weapons = [];
+const GRAPPLE_HOOK_NUMBER = 1,
+  DOUBLE_HOOK_NUMBER = 2,
+  TRIDENT_NUMBER = 3,
+  HOOK_SPEED = 0.3,
+  BULLET_SPEED = 0.3,
+  HOOK_WITDH = 5,
+  GUN_NUMBER = 4;
+var platforms = [],
+  ladders = [],
+  clic = { x: 0, y: 0 },
+  items = [];
+const GRAPPLE_HOOK_ITEM = GRAPPLE_HOOK_NUMBER,
+  DOUBLE_HOOK_ITEM = DOUBLE_HOOK_NUMBER,
+  TRIDENT_ITEM = TRIDENT_NUMBER,
+  GUN_ITEM = GUN_NUMBER,
+  TIMER_BOOST_ITEM = 5,
+  DYNAMITE_ITEM = 6,
+  FREEZE_ITEM = 7,
+  SHIELD_ITEM = 8,
+  MAX_ITEM = 8;
+var margin = 60,
+  marginButton = 75,
+  widthButton = 132,
+  heightButton = 40;
+const DESTRUCTIBLE_PLATFORM_COLOR = "#f47b3e",
+  PLATFORM_COLOR = "#a5260a",
+  LADDERS_IMAGE = new Image();
+var BALLOON_COLOR, BALLON_GRADIENT;
 LADDERS_IMAGE.src = "./assets/Ladders.png";
-
-var BALLOON_COLOR;
-var BALLON_GRADIENT;
-
 const EASTER_BUNNY = new Image();
 EASTER_BUNNY.src = "./assets/lapin.png";
 const EASTER_EGG = new Image();
 EASTER_EGG.src = "./assets/easterEgg.png";
-const GRAPPLE_HOOK_COLOR = "red";
-const TRIDENT_COLOR1 = "orangered";
-const TRIDENT_COLOR2 = "orange";
-const TRIDENT_COLOR3 = "yellow";
-
-const GRAPPLE_HOOK_ITEM_COLOR = "red";
-const DOUBLE_HOOK_ITEM_IMAGE = new Image();
+const GRAPPLE_HOOK_COLOR = "red",
+  TRIDENT_COLOR1 = "orangered",
+  TRIDENT_COLOR2 = "orange",
+  TRIDENT_COLOR3 = "yellow",
+  GRAPPLE_HOOK_ITEM_COLOR = "red",
+  DOUBLE_HOOK_ITEM_IMAGE = new Image();
 DOUBLE_HOOK_ITEM_IMAGE.src = "./assets/double_hook_item.png";
-
 const TRIDENT_ITEM_IMAGE = new Image();
 TRIDENT_ITEM_IMAGE.src = "./assets/trident.png";
-
 const TIMER_BOOST_ITEM_IMAGE = new Image();
 TIMER_BOOST_ITEM_IMAGE.src = "./assets/item_timer_bonus.png";
-
 const SHIELD_ITEM_IMAGE = new Image();
-SHIELD_ITEM_IMAGE.src = "./assets/item_shield.png";
-
 var BACKGROUND_IMAGE;
+SHIELD_ITEM_IMAGE.src = "./assets/item_shield.png";
 const PLAYER_IMAGE_LEFT = new Image();
 PLAYER_IMAGE_LEFT.src = "./assets/player_left.png";
-
 const PLAYER_IMAGE_RIGHT = new Image();
 PLAYER_IMAGE_RIGHT.src = "./assets/player_right.png";
-
 const DOUBLE_HOOK_IMAGE = new Image();
 DOUBLE_HOOK_IMAGE.src = "./assets/double_hook.png";
-
 const TRIDENT_IMAGE = new Image();
 TRIDENT_IMAGE.src = "./assets/trident.png";
-
 const DYNAMITE_IMAGE = new Image();
 DYNAMITE_IMAGE.src = "./assets/dynamite.png";
-
 const FREEZE_IMAGE = new Image();
 FREEZE_IMAGE.src = "./assets/item_freeze.png";
-
 const SHIELD_IMAGE = new Image();
-SHIELD_IMAGE.src = "./assets/shield.png";
-
-// ---------------------------------------------------------------------------
-// ################################ Functions ################################
-// ---------------------------------------------------------------------------
-
-/**
- * Level selection, initialize all the variables
- * 
- * @param {int} num - Number of the level
- */
-function levelInitialization(num) {
-	//Initialization of the player
-	player.position.x = context.width / 2 - player.width / 2;
-	player.position.y = context.height - player.height;
-	player.height = 70;
-	player.width = 45;
-	player.powerOn = GRAPPLE_HOOK_NUMBER;
-	player.shieldOn = false;
-
-	//Init of the ladders, platforms, balloons and background depending on the level number
-	//JSON.parse(JSON.stringify(var)) is to make a copy of the object and not a copy of the adress
-	switch (num) {
-		case 2:
-			ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level2));
-			platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level2));
-			balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level2));
-			BALLOON_COLOR = "blue";
-			cvs.style.background = "url('assets/bg_citadelle.jpg')";
-			break;
-
-		case 3:
-			ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level3));
-			platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level3));
-			balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level3));
-			BALLOON_COLOR = "green";
-			cvs.style.background = "url('assets/bg_saline.jpg')";
-			break;
-
-		case 4:
-			ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level4));
-			platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level4));
-			balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level4));
-			BALLOON_COLOR = "red";
-			cvs.style.background = "url('assets/bg_lion.jpg')";
-			break;
-
-		case 5:
-			ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level5));
-			platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level5));
-			balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level5));
-			BALLOON_COLOR = "red";
-			cvs.style.background = "url('assets/bg_joux.jpg')";
-			break;
-
-		case 6:
-			ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level6));
-			platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level6));
-			balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level6));
-			BALLOON_COLOR = "red";
-			cvs.style.background = "url('assets/bg_metabief.jpg')";
-			break;
-
-		case 7:
-			ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level7));
-			platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level7));
-			balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level7));
-			BALLOON_COLOR = "red";
-			cvs.style.background = "url('assets/bg_musee.jpg')";
-			break;
-
-		case 8:
-			ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level8));
-			platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level8));
-			balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level8));
-			BALLOON_COLOR = "red";
-			cvs.style.background = "url('assets/bg_gouffre.jpg')";
-			break;
-
-		case 9:
-			ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level9));
-			platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level9));
-			balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level9));
-			BALLOON_COLOR = "red";
-			cvs.style.background = "url('assets/bg_cascade.jpg')";
-			break;
-
-		case 10:
-			ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level10));
-			platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level10));
-			balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level10));
-			BALLOON_COLOR = "red";
-			cvs.style.background = "url('assets/bg_fromages.jpg')";
-			break;
-
-		default:
-			ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level1));
-			platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level1));
-			balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level1));
-			BALLOON_COLOR = "red";
-			cvs.style.background = "url('assets/bg_fac.jpg')";
-			player.position.x = context.width / 4;
-	}
-
-	//Init of the timer
-	timer = 100;
-
-	//No weapon
-	weapons = [];
-
-	//No items
-	items = [];
-
-	//Victory and defeat reset
-	victory = false;
-	defeat = false;
+function levelInitialization(e) {
+  switch (
+    ((player.position.x = context.width / 2 - player.width / 2),
+    (player.position.y = context.height - player.height),
+    (player.height = 70),
+    (player.width = 45),
+    (player.powerOn = GRAPPLE_HOOK_NUMBER),
+    (player.shieldOn = !1),
+    e)
+  ) {
+    case 2:
+      (ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level2))),
+        (platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level2))),
+        (balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level2))),
+        (BALLOON_COLOR = "blue"),
+        (cvs.style.background = "url('assets/bg_citadelle.jpg')");
+      break;
+    case 3:
+      (ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level3))),
+        (platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level3))),
+        (balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level3))),
+        (BALLOON_COLOR = "green"),
+        (cvs.style.background = "url('assets/bg_saline.jpg')");
+      break;
+    case 4:
+      (ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level4))),
+        (platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level4))),
+        (balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level4))),
+        (BALLOON_COLOR = "red"),
+        (cvs.style.background = "url('assets/bg_lion.jpg')");
+      break;
+    case 5:
+      (ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level5))),
+        (platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level5))),
+        (balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level5))),
+        (BALLOON_COLOR = "red"),
+        (cvs.style.background = "url('assets/bg_joux.jpg')");
+      break;
+    case 6:
+      (ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level6))),
+        (platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level6))),
+        (balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level6))),
+        (BALLOON_COLOR = "red"),
+        (cvs.style.background = "url('assets/bg_metabief.jpg')");
+      break;
+    case 7:
+      (ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level7))),
+        (platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level7))),
+        (balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level7))),
+        (BALLOON_COLOR = "red"),
+        (cvs.style.background = "url('assets/bg_musee.jpg')");
+      break;
+    case 8:
+      (ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level8))),
+        (platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level8))),
+        (balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level8))),
+        (BALLOON_COLOR = "red"),
+        (cvs.style.background = "url('assets/bg_gouffre.jpg')");
+      break;
+    case 9:
+      (ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level9))),
+        (platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level9))),
+        (balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level9))),
+        (BALLOON_COLOR = "red"),
+        (cvs.style.background = "url('assets/bg_cascade.jpg')");
+      break;
+    case 10:
+      (ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level10))),
+        (platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level10))),
+        (balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level10))),
+        (BALLOON_COLOR = "red"),
+        (cvs.style.background = "url('assets/bg_fromages.jpg')");
+      break;
+    default:
+      (ladders = JSON.parse(JSON.stringify(LADDERS_LIST.level1))),
+        (platforms = JSON.parse(JSON.stringify(PLATFORMS_LIST.level1))),
+        (balloons = JSON.parse(JSON.stringify(BALLOONS_LIST.level1))),
+        (BALLOON_COLOR = "red"),
+        (cvs.style.background = "url('assets/bg_fac.jpg')"),
+        (player.position.x = context.width / 4);
+  }
+  (timer = 100), (weapons = []), (items = []), (victory = !1), (defeat = !1);
 }
-
-/**
- * Detect which button is clicked
- *
- * @returns {int} -1 if there is no button, the level else
- */
 function detectLevelButton() {
-	var niveau = -1,
-		i = 0;
-
-	// detect
-	do {
-		if (
-			clic.x >= margin + i * (widthButton + marginButton) &&
-			clic.x <= margin + i * (widthButton + marginButton) + widthButton
-		) {
-			if (clic.y <= 440) {
-				niveau = i + 1;
-			} else {
-				niveau = i + 6;
-			}
-		} else {
-			i++;
-		}
-	} while (i < 5 && niveau == -1);
-
-	return niveau;
+  var e = -1,
+    t = 0;
+  do {
+    clic.x >= margin + t * (widthButton + marginButton) &&
+    clic.x <= margin + t * (widthButton + marginButton) + widthButton
+      ? (e = clic.y <= 440 ? t + 1 : t + 6)
+      : t++;
+  } while (t < 5 && -1 == e);
+  return e;
 }
-
-/**
- * Moving the player (horizontally)
- * 
- * @param {int} move - Direction of the move
- */
-function playerMove(move) {
-	switch (move) {
-		case 39:
-			player.speed.x = PLAYER_SPEED;
-			break;
-		case 37:
-			player.speed.x = -PLAYER_SPEED;
-			break;
-	}
+function playerMove(e) {
+  switch (e) {
+    case 39:
+      player.speed.x = PLAYER_SPEED;
+      break;
+    case 37:
+      player.speed.x = -PLAYER_SPEED;
+  }
 }
-
-/**
- * Stop the player's movement (horizontally)
- * 
- * @param {int} move - Direction of the move
- */
-function playerStopMove(move) {
-	switch (move) {
-		case 39:
-			if (player.speed.x > 0) {
-				player.speed.x = 0;
-			}
-			break;
-		case 37:
-			if (player.speed.x < 0) {
-				player.speed.x = 0;
-			}
-			break;
-	}
+function playerStopMove(e) {
+  switch (e) {
+    case 39:
+      player.speed.x > 0 && (player.speed.x = 0);
+      break;
+    case 37:
+      player.speed.x < 0 && (player.speed.x = 0);
+  }
 }
-
-/**
- * Moving the player (with ladders)
- * 
- * @param {int} move - Direction of the move
- */
-playerMoveLadder = function (move) {
-	if (findLadder(player) != -1) {
-		switch (move) {
-			case 38:
-				player.speed.y = -PLAYER_SPEED;
-				break;
-			case 40:
-				player.speed.y = PLAYER_SPEED;
-				break;
-		}
-	}
-};
-
-/**
- * Stop the player's movement (with ladders)
- */
 function playerStopMoveLadder() {
-	player.speed.y = 0;
+  player.speed.y = 0;
 }
-
-/**
- * Return the ladder array's index
- * 
- * @param {*} object - Object to compare with ladder
- * 
- * @returns {int} Index of the ladder
- */
-function findLadder(object) {
-	var i = 0;
-	var find = false;
-
-	while (i < ladders.length && !find) {
-		if (
-			object.position.x >= ladders[i].position.x - 0.33 * object.width &&
-			object.position.x <=
-			ladders[i].position.x + ladders[i].width - 0.66 * object.width
-		) {
-			if (
-				object.position.y >= ladders[i].position.y - 1.1 * object.height &&
-				object.position.y <= ladders[i].position.y + ladders[i].height
-			) {
-				find = true;
-			} else {
-				i++;
-			}
-		} else {
-			i++;
-		}
-	}
-	if (i == ladders.length) {
-		i = -1;
-	}
-	return i;
+function findLadder(e) {
+  for (var t = 0, i = !1; t < ladders.length && !i; )
+    e.position.x >= ladders[t].position.x - 0.33 * e.width &&
+    e.position.x <= ladders[t].position.x + ladders[t].width - 0.66 * e.width &&
+    e.position.y >= ladders[t].position.y - 1.1 * e.height &&
+    e.position.y <= ladders[t].position.y + ladders[t].height
+      ? (i = !0)
+      : t++;
+  return t == ladders.length && (t = -1), t;
 }
-
-/**
- * Detect if the player is on a platform
- * 
- * @param {*} object - Object to compare with platforms
- * 
- * @returns {boolean} True if the object is on the ladder
- */
-function detectPlatform(object) {
-	var isNotOn = 0;
-
-	for (var i = 0; i < platforms.length; i++) {
-		if (
-			!platforms[i].exist ||
-			object.position.x + object.width < platforms[i].position.x ||
-			object.position.x > platforms[i].position.x + platforms[i].width ||
-			object.position.y >= platforms[i].position.y + platforms[i].height ||
-			object.position.y + object.height < platforms[i].position.y
-		) {
-			isNotOn++;
-		}
-	}
-
-	if (isNotOn < platforms.length) {
-		return true;
-	}
-	return false;
+function detectPlatform(e) {
+  for (var t = 0, i = 0; i < platforms.length; i++)
+    (!platforms[i].exist ||
+      e.position.x + e.width < platforms[i].position.x ||
+      e.position.x > platforms[i].position.x + platforms[i].width ||
+      e.position.y >= platforms[i].position.y + platforms[i].height ||
+      e.position.y + e.height < platforms[i].position.y) &&
+      t++;
+  return t < platforms.length;
 }
-
-/**
- * Detect if the object is not on the ground, a platform, or a ladder
- * 
- * @param {*} object - Object to compare with elements
- * 
- * @returns {boolean} True if the object is not on the ground, a platform, or a ladder
- */
-function isNotOnPlatformOrGround(object) {
-	isNot = false;
-
-	if (
-		object.position.y + object.height < context.height &&
-		findLadder(object) == -1 &&
-		detectPlatform(object) == false
-	) {
-		// not on something
-		isNot = true;
-	}
-
-	return isNot;
+function isNotOnPlatformOrGround(e) {
+  return (
+    (isNot = !1),
+    e.position.y + e.height < context.height &&
+      -1 == findLadder(e) &&
+      0 == detectPlatform(e) &&
+      (isNot = !0),
+    isNot
+  );
 }
-
-/**
- * Draw a message in case of victory or defeat
- * 
- * @param {*} gameState - Game state, e.g. 'victory' or 'defeat'
- */
-function drawFinalMessage(gameState) {
-	var text;
-
-	// rectangle
-	if (gameState == "victory") {
-		context.fillStyle = "rgb(51, 138, 52, .75)";
-		text = "VICTOIRE !";
-	} else if (player.livesNumber > 1) {
-		context.fillStyle = "rgb(171, 0, 13, .75)";
-		text = "TOUCHÉ...";
-	} else {
-		context.fillStyle = "rgb(171, 0, 13, .75)";
-		text = "PERDU !   SCORE : " + player.score;
-	}
-	context.shadowBlur = 15;
-	context.shadowColor = "black";
-	context.fillRect(
-		context.width / 5,
-		(context.height - 150) / 2,
-		(context.width / 5) * 3,
-		150
-	);
-	context.shadowBlur = 0;
-
-	// text
-	context.fillStyle = "white";
-	context.font = "48px sans-serif";
-	context.fillText(
-		text,
-		(context.width - context.measureText(text).width) / 2,
-		context.height / 2 + 24
-	);
+function drawFinalMessage(e) {
+  var t;
+  "victory" == e
+    ? ((context.fillStyle = "rgb(51, 138, 52, .75)"), (t = "VICTOIRE !"))
+    : player.livesNumber > 1
+    ? ((context.fillStyle = "rgb(171, 0, 13, .75)"), (t = "TOUCHÉ..."))
+    : ((context.fillStyle = "rgb(171, 0, 13, .75)"),
+      (t = "PERDU !   SCORE : " + player.score)),
+    (context.shadowBlur = 15),
+    (context.shadowColor = "black"),
+    context.fillRect(
+      context.width / 5,
+      (context.height - 150) / 2,
+      (context.width / 5) * 3,
+      150
+    ),
+    (context.shadowBlur = 0),
+    (context.fillStyle = "white"),
+    (context.font = "48px sans-serif"),
+    context.fillText(
+      t,
+      (context.width - context.measureText(t).width) / 2,
+      context.height / 2 + 24
+    );
 }
-
-/**
- * If the player goes out of the borders, changes his position to a correct one
- */
 function keepPlayerWithinBorder() {
-	if (player.position.x < 0) {
-		player.position.x = 0;
-	} else {
-		if (player.position.x > context.width - player.width) {
-			player.position.x = context.width - player.width;
-		}
-	}
-
-	if (player.position.y < 0) {
-		player.position.y = 0;
-	} else {
-		if (player.position.y > context.height - player.height) {
-			player.position.y = context.height - player.height;
-		}
-	}
+  player.position.x < 0
+    ? (player.position.x = 0)
+    : player.position.x > context.width - player.width &&
+      (player.position.x = context.width - player.width),
+    player.position.y < 0
+      ? (player.position.y = 0)
+      : player.position.y > context.height - player.height &&
+        (player.position.y = context.height - player.height);
 }
-
-/**
- * Checks if the player will collide with an object
- * 
- * @param {*} ball - The player
- * @param {float} newPosX - The (maybe) new X coordinate of the player
- * @param {float} newPosY - The (maybe) new Y coordinate of the player
- * @param {*} object - A rectangular object
- *
- * @returns {boolean} True if the player will collide with the object
- */
-function isPlayerWithinObject(player, newPosX, newPosY, object) {
-	var correction = false;
-	if (object.exist) {
-		//
-		if (
-			newPosX + player.width < object.position.x ||
-			newPosX > object.position.x + object.width
-		) {
-			//No problem
-		} else {
-			if (
-				newPosY + player.height <= object.position.y ||
-				newPosY >= object.position.y + object.height
-			) {
-				// No problem
-			} else {
-				correction = true;
-			}
-		}
-	}
-	return correction;
+function isPlayerWithinObject(e, t, i, o) {
+  var s = !1;
+  return (
+    o.exist &&
+      (t + e.width < o.position.x ||
+        t > o.position.x + o.width ||
+        i + e.height <= o.position.y ||
+        i >= o.position.y + o.height ||
+        (s = !0)),
+    s
+  );
 }
-
-/**
- * Keep a balloon inside the canvas
- * 
- * @param {*} ball - A balloon
- *
- * @returns {boolean} true if there is a changement
- */
-function keepBalloonWithinBorders(ball) {
-	var changement = false;
-	//Top
-	if (ball.center.y < ball.size.radius) {
-		ball.center.y = ball.size.radius;
-		ball.velocity.y = -ball.velocity.y;
-		changement = true;
-	} else {
-		//Bottom
-		if (ball.center.y > cvs.height - ball.size.radius) {
-			ball.center.y = cvs.height - ball.size.radius;
-			ball.velocity.y = ball.size.Yvelocity;
-			changement = true;
-		}
-	}
-	//Left
-	if (ball.center.x < ball.size.radius) {
-		ball.center.x = ball.size.radius;
-		ball.velocity.x = -ball.velocity.x;
-		changement = true;
-	} else {
-		//Right
-		if (ball.center.x > cvs.width - ball.size.radius) {
-			ball.center.x = cvs.width - ball.size.radius;
-			ball.velocity.x = -ball.velocity.x;
-			changement = true;
-		}
-	}
-	return changement;
+function keepBalloonWithinBorders(e) {
+  var t = !1;
+  return (
+    e.center.y < e.size.radius
+      ? ((e.center.y = e.size.radius), (e.velocity.y = -e.velocity.y), (t = !0))
+      : e.center.y > cvs.height - e.size.radius &&
+        ((e.center.y = cvs.height - e.size.radius),
+        (e.velocity.y = e.size.Yvelocity),
+        (t = !0)),
+    e.center.x < e.size.radius
+      ? ((e.center.x = e.size.radius), (e.velocity.x = -e.velocity.x), (t = !0))
+      : e.center.x > cvs.width - e.size.radius &&
+        ((e.center.x = cvs.width - e.size.radius),
+        (e.velocity.x = -e.velocity.x),
+        (t = !0)),
+    t
+  );
 }
-
-/**
- * Update the gradient of a circle
- * 
- * @param {*} circle - Balloon which will be update
- */
-function updateCircleColor(circle) {
-	BALLON_GRADIENT = context.createRadialGradient(
-		circle.center.x - circle.size.radius / 3,
-		circle.center.y - circle.size.radius / 3,
-		circle.size.radius / 5,
-		circle.center.x,
-		circle.center.y,
-		circle.size.radius
-	);
-
-	switch (BALLOON_COLOR) {
-		case "blue":
-			BALLON_GRADIENT.addColorStop(0, "#5e92f3");
-			BALLON_GRADIENT.addColorStop(0.2, "#1565c0");
-			BALLON_GRADIENT.addColorStop(1, "#003c8f");
-			break;
-		case "red":
-			BALLON_GRADIENT.addColorStop(0, "#ff7961");
-			BALLON_GRADIENT.addColorStop(0.2, "#f44336");
-			BALLON_GRADIENT.addColorStop(1, "#ab000d");
-			break;
-		case "green":
-			BALLON_GRADIENT.addColorStop(0, "#76d275");
-			BALLON_GRADIENT.addColorStop(0.2, "#43a047");
-			BALLON_GRADIENT.addColorStop(1, "#00701a");
-	}
-};
-
-/**
- * Draw a circle
- * 
- * @param {*} circle - Balloon which will be draw
- */
-function fillCircle(circle) {
-	updateCircleColor(circle);
-
-	context.beginPath();
-	if (easterEgg) {
-		context.drawImage(
-			EASTER_EGG,
-			circle.center.x - circle.size.radius,
-			circle.center.y - circle.size.radius,
-			circle.size.radius * 2,
-			circle.size.radius * 2
-		);
-		context.arc(
-			circle.center.x,
-			circle.center.y,
-			circle.size.radius,
-			0,
-			2 * Math.PI
-		);
-	} else {
-		context.fillStyle = BALLON_GRADIENT;
-		context.arc(
-			circle.center.x,
-			circle.center.y,
-			circle.size.radius,
-			0,
-			2 * Math.PI
-		);
-		context.fill();
-	}
+function updateCircleColor(e) {
+  switch (
+    ((BALLON_GRADIENT = context.createRadialGradient(
+      e.center.x - e.size.radius / 3,
+      e.center.y - e.size.radius / 3,
+      e.size.radius / 5,
+      e.center.x,
+      e.center.y,
+      e.size.radius
+    )),
+    BALLOON_COLOR)
+  ) {
+    case "blue":
+      BALLON_GRADIENT.addColorStop(0, "#5e92f3"),
+        BALLON_GRADIENT.addColorStop(0.2, "#1565c0"),
+        BALLON_GRADIENT.addColorStop(1, "#003c8f");
+      break;
+    case "red":
+      BALLON_GRADIENT.addColorStop(0, "#ff7961"),
+        BALLON_GRADIENT.addColorStop(0.2, "#f44336"),
+        BALLON_GRADIENT.addColorStop(1, "#ab000d");
+      break;
+    case "green":
+      BALLON_GRADIENT.addColorStop(0, "#76d275"),
+        BALLON_GRADIENT.addColorStop(0.2, "#43a047"),
+        BALLON_GRADIENT.addColorStop(1, "#00701a");
+  }
 }
-
-/**
- * Detect the victory (= no balloon remaining)
- * 
- * @returns {boolean} true if the victory is actual
- */
+function fillCircle(e) {
+  updateCircleColor(e),
+    context.beginPath(),
+    easterEgg
+      ? (context.drawImage(
+          EASTER_EGG,
+          e.center.x - e.size.radius,
+          e.center.y - e.size.radius,
+          2 * e.size.radius,
+          2 * e.size.radius
+        ),
+        context.arc(e.center.x, e.center.y, e.size.radius, 0, 2 * Math.PI))
+      : ((context.fillStyle = BALLON_GRADIENT),
+        context.arc(e.center.x, e.center.y, e.size.radius, 0, 2 * Math.PI),
+        context.fill());
+}
 function isVictory() {
-	var isOneBalloonRemaining = false;
-	var i = 0;
-	while (i < balloons.length && !isOneBalloonRemaining) {
-		if (balloons[i].size.number > 0) {
-			isOneBalloonRemaining = true;
-		}
-		i++;
-	}
-	return !isOneBalloonRemaining;
+  for (var e = !1, t = 0; t < balloons.length && !e; )
+    balloons[t].size.number > 0 && (e = !0), t++;
+  return !e;
 }
-
-/**
- * Detect the defeat
- * (i.e. if there is no time and at least one balloon remains)
- * 
- * @param {*} ball The ball
- * 
- * @returns {boolean} true if the defeat is here
- */
-function isDefeat(ball) {
-	var defeat = false;
-
-	// check
-	if (timer <= 1 && !isVictory()) {
-		defeat = true;
-	} else if (
-		ball.size.number > 0 &&
-		collisionsWithPlayer(ball, player) &&
-		!isInvincible
-	) {
-		// Shield
-		if (player.shieldOn) {
-			player.shieldOn = false;
-			isInvincible = true;
-			shieldTimer = Date.now();
-			if (ball.size.number > 1) {
-				splitBalloon(ball);
-			} else {
-				ball.size = BALLOON_SIZE[ball.size.number - 1];
-			}
-			playerBlinkTimer = Date.now();
-		} else {
-			defeat = true;
-		}
-	}
-	return defeat;
+function isDefeat(e) {
+  var t = !1;
+  return (
+    timer <= 1 && !isVictory()
+      ? (t = !0)
+      : e.size.number > 0 &&
+        collisionsWithPlayer(e, player) &&
+        !isInvincible &&
+        (player.shieldOn
+          ? ((player.shieldOn = !1),
+            (isInvincible = !0),
+            (shieldTimer = Date.now()),
+            e.size.number > 1
+              ? splitBalloon(e)
+              : (e.size = BALLOON_SIZE[e.size.number - 1]),
+            (playerBlinkTimer = Date.now()))
+          : (t = !0)),
+    t
+  );
 }
-
-/**
- * Check if a weapon is between the x coordinates of a rectangle
- * 
- * @param weapon the weapon we want to check
- * @param rectangle the rectangle
- * 
- * @returns {boolean} true if the weapon is
- */
-function isWeaponBetweenX(weapon, rectangle) {
-	return !(
-		weapon.position.x + HOOK_WITDH < rectangle.position.x ||
-		weapon.position.x > rectangle.position.x + rectangle.width
-	);
+function isWeaponBetweenX(e, t) {
+  return !(
+    e.position.x + HOOK_WITDH < t.position.x ||
+    e.position.x > t.position.x + t.width
+  );
 }
-
-/**
- * Fire a weapon
- * 
- * @param player the player who has his weapon fired
- */
-function shootWeapon(player) {
-	switch (player.powerOn) {
-		case GRAPPLE_HOOK_NUMBER:
-			shootGrappleHook();
-			break;
-
-		case DOUBLE_HOOK_NUMBER:
-			shootGrappleHook();
-			break;
-
-		case TRIDENT_NUMBER:
-			shootGrappleHook();
-			break;
-
-		case GUN_NUMBER:
-			shootGun();
-			break;
-	}
+function shootWeapon(e) {
+  switch (e.powerOn) {
+    case GRAPPLE_HOOK_NUMBER:
+    case DOUBLE_HOOK_NUMBER:
+    case TRIDENT_NUMBER:
+      shootGrappleHook();
+      break;
+    case GUN_NUMBER:
+      shootGun();
+  }
 }
-
-/**
- * Shoot a grapple hook, simple or double
- * Change are made in the weapons array
- */
 function shootGrappleHook() {
-	//No grapple hook shot or double grapple hook bonus is on
-	if (
-		weapons.length == 0 ||
-		(weapons.length < 2 && player.powerOn == DOUBLE_HOOK_NUMBER)
-	) {
-		weapons[weapons.length] = {
-			type: player.powerOn,
-			shooting: true,
-			position: {
-				x: player.position.x + player.width / 2,
-				y: player.position.y + player.height
-			},
-			length: player.height,
-			time: 0
-		};
-	}
+  (0 == weapons.length ||
+    (weapons.length < 2 && player.powerOn == DOUBLE_HOOK_NUMBER)) &&
+    (weapons[weapons.length] = {
+      type: player.powerOn,
+      shooting: !0,
+      position: {
+        x: player.position.x + player.width / 2,
+        y: player.position.y + player.height,
+      },
+      length: player.height,
+      time: 0,
+    });
 }
-
-/**
- * Shoot a bullet
- * Change are made in the weapons array
- */
 function shootGun() {
-	weapons[weapons.length] = {
-		type: player.powerOn,
-		shooting: true,
-		position: {
-			x: player.position.x + player.width / 2,
-			y: player.position.y + player.height
-		},
-		length: 20,
-		time: 0
-	};
+  weapons[weapons.length] = {
+    type: player.powerOn,
+    shooting: !0,
+    position: {
+      x: player.position.x + player.width / 2,
+      y: player.position.y + player.height,
+    },
+    length: 20,
+    time: 0,
+  };
 }
-
-/**
- * Delete all the weapons
- * Reset the 'weapons' array
- */
 function deleteWeapon() {
-	weapons = [];
+  weapons = [];
 }
-
-/**
- * Delete all the stopped weapons in the 'weapons' array
- */
 function deleteStoppedWeapons() {
-	var temp = weapons.filter(weapons => weapons.shooting);
-	weapons = temp;
+  var e = weapons.filter((e) => e.shooting);
+  weapons = e;
 }
-
-
-/**
- * Checking if the weapon should stop
- * And stop it if it needs to
- * 
- * @param weap the weapon we are checking
- */
-function stopWeapon(weap) {
-
-    // Hit the top of the screen
-    if (weap.position.y - weap.length < 0) {
-        switch (weap.type) {
-            case GRAPPLE_HOOK_NUMBER:
-                deleteWeapon();
-                break;
-
-            case DOUBLE_HOOK_NUMBER:
-                weap.shooting = false;
-                deleteStoppedWeapons();
-                break;
-
-            case TRIDENT_NUMBER:
-                weap.shooting = false;
-                if (weap.time > 3) {
-                    deleteWeapon();
-                }
-                break;
-
-            case GUN_NUMBER:
-                weap.shooting = false;
-                deleteStoppedWeapons();
-                break;
-        }
-    } else {
-
-        //Hit a platform
-        var isItHittingPlatform = false;
-
-        for (var i = 0; i < platforms.length; i++) {
-            if (platforms[i].exist && isWeaponBetweenX(weap, platforms[i])) {
-                if (weap.position.y - weap.length < platforms[i].position.y + platforms[i].height
-                    && weap.position.y > platforms[i].position.y) {
-                    switch (weap.type) {
-                        case GRAPPLE_HOOK_NUMBER:
-                            weap.shooting = false;
-                            deleteWeapon();
-                            if (platforms[i].isDestructible) {
-                                platforms[i].exist = false;
-                            }
-                            break;
-
-                        case DOUBLE_HOOK_NUMBER:
-                            weap.shooting = false;
-                            deleteStoppedWeapons();
-                            if (platforms[i].isDestructible) {
-                                platforms[i].exist = false;
-                            }
-                            break;
-
-                        case TRIDENT_NUMBER:
-                            weap.shooting = false;
-                            if (platforms[i].isDestructible) {
-                                platforms[i].exist = false;
-                                deleteWeapon();
-                            } else if(weap.time >3) {
-                                deleteWeapon();
-                            }
-                            break;
-
-                        case GUN_NUMBER:
-                            weap.shooting = false;
-                            if (platforms[i].isDestructible) {
-                                platforms[i].exist = false;
-                            }
-                            deleteStoppedWeapons();
-                            break;
-                    }
-                }
-            }
-        }
+function stopWeapon(e) {
+  if (e.position.y - e.length < 0)
+    switch (e.type) {
+      case GRAPPLE_HOOK_NUMBER:
+        deleteWeapon();
+        break;
+      case DOUBLE_HOOK_NUMBER:
+        (e.shooting = !1), deleteStoppedWeapons();
+        break;
+      case TRIDENT_NUMBER:
+        (e.shooting = !1), e.time > 3 && deleteWeapon();
+        break;
+      case GUN_NUMBER:
+        (e.shooting = !1), deleteStoppedWeapons();
     }
-
-    //Hitting a balloon
-    for (var i = 0; i < balloons.length; i++) {
-        if (balloons[i].size.number > 0) {
-            if (
-                Math.pow(balloons[i].center.x - weap.position.x, 2) <
-                Math.pow(balloons[i].size.radius, 2) &&
-                balloons[i].center.y + balloons[i].size.radius >
-                weap.position.y - weap.length &&
-                balloons[i].center.y + balloons[i].size.radius < weap.position.y
-            ) {
-                switch (weap.type) {
-                    case GRAPPLE_HOOK_NUMBER:
-                        deleteWeapon();
-                        break;
-
-                    case TRIDENT_NUMBER:
-                        deleteWeapon();
-                        break;
-
-                    case DOUBLE_HOOK_NUMBER:
-                        weap.shooting = false;
-                        deleteStoppedWeapons();
-                        break;
-
-                    case GUN_NUMBER:
-                        weap.shooting = false;
-                        deleteStoppedWeapons();
-                        break;
-                }
-
-                //Add some points
-                player.score += balloons[i].size.radius * 10;
-
-                //Split the balloon
-                splitBalloon(balloons[i]);
-            }
+  else
+    for (var t = 0; t < platforms.length; t++)
+      if (
+        platforms[t].exist &&
+        isWeaponBetweenX(e, platforms[t]) &&
+        e.position.y - e.length <
+          platforms[t].position.y + platforms[t].height &&
+        e.position.y > platforms[t].position.y
+      )
+        switch (e.type) {
+          case GRAPPLE_HOOK_NUMBER:
+            (e.shooting = !1),
+              deleteWeapon(),
+              platforms[t].isDestructible && (platforms[t].exist = !1);
+            break;
+          case DOUBLE_HOOK_NUMBER:
+            (e.shooting = !1),
+              deleteStoppedWeapons(),
+              platforms[t].isDestructible && (platforms[t].exist = !1);
+            break;
+          case TRIDENT_NUMBER:
+            (e.shooting = !1),
+              platforms[t].isDestructible
+                ? ((platforms[t].exist = !1), deleteWeapon())
+                : e.time > 3 && deleteWeapon();
+            break;
+          case GUN_NUMBER:
+            (e.shooting = !1),
+              platforms[t].isDestructible && (platforms[t].exist = !1),
+              deleteStoppedWeapons();
         }
+  for (t = 0; t < balloons.length; t++)
+    if (
+      balloons[t].size.number > 0 &&
+      Math.pow(balloons[t].center.x - e.position.x, 2) <
+        Math.pow(balloons[t].size.radius, 2) &&
+      balloons[t].center.y + balloons[t].size.radius >
+        e.position.y - e.length &&
+      balloons[t].center.y + balloons[t].size.radius < e.position.y
+    ) {
+      switch (e.type) {
+        case GRAPPLE_HOOK_NUMBER:
+        case TRIDENT_NUMBER:
+          deleteWeapon();
+          break;
+        case DOUBLE_HOOK_NUMBER:
+        case GUN_NUMBER:
+          (e.shooting = !1), deleteStoppedWeapons();
+      }
+      (player.score += 10 * balloons[t].size.radius), splitBalloon(balloons[t]);
     }
 }
-
-/**
- * Calcul of the square of the distance between points
- * 
- * @param pointA The first point with x and y
- * @param pointB The second point
- * 
- * @returns {int} The (distance between the points)²
- */
-function squareDistanceBetweenPoints(pointA, pointB) {
-	return (
-		(pointA.x - pointB.x) * (pointA.x - pointB.x) +
-		(pointA.y - pointB.y) * (pointA.y - pointB.y)
-	);
+function squareDistanceBetweenPoints(e, t) {
+  return (e.x - t.x) * (e.x - t.x) + (e.y - t.y) * (e.y - t.y);
 }
-
-/**
- * Check if the balloonX is between the x and (x + width) of the rectangle
- * 
- * @param {*} ball The ball we want to check
- * @param rectangle The rectangle
- * 
- * @returns {boolean} True if it is
- */
-function isBalloonBetweenRectangleX(ball, rectangle) {
-	return (
-		ball.center.x > rectangle.position.x &&
-		ball.center.x < rectangle.position.x + rectangle.width
-	);
+function isBalloonBetweenRectangleX(e, t) {
+  return e.center.x > t.position.x && e.center.x < t.position.x + t.width;
 }
-
-/**
- * Is the ballon Y between the y and (y + width) of the rectangle ? 
- * 
- * @param {*} ball The ball we want to check
- * @param rectangle The rectangle
- * 
- * @returns {boolean} True if it is
- */
-function isBalloonBetweenRectangleY(ball, rectangle) {
-	return (
-		ball.center.y >= rectangle.position.y &&
-		ball.center.y <= rectangle.position.y + rectangle.height
-	);
+function isBalloonBetweenRectangleY(e, t) {
+  return e.center.y >= t.position.y && e.center.y <= t.position.y + t.height;
 }
-
-/**
- * Is the balloon near a plateform ? (= near to collide but we don't know if it really does)
- * 
- * @param {*} ball The ball we want to check
- * @param {*} object The object as a rectangle
-
- * @return {boolean} True if it is
- */
-function isBalloonNearObject(ball, object) {
-	return !(
-		ball.center.x < object.position.x - ball.size.radius ||
-		ball.center.x > object.position.x + object.width + ball.size.radius ||
-		ball.center.y < object.position.y - ball.size.radius ||
-		ball.center.y > object.position.y + object.height + ball.size.radius
-	);
+function isBalloonNearObject(e, t) {
+  return !(
+    e.center.x < t.position.x - e.size.radius ||
+    e.center.x > t.position.x + t.width + e.size.radius ||
+    e.center.y < t.position.y - e.size.radius ||
+    e.center.y > t.position.y + t.height + e.size.radius
+  );
 }
-
-/**
- * Check if there is an horizontal collision
- * 
- * @param {*} ball The ball we want to check
- * @param {*} object The object as a rectangle
-
- * @return {boolean} True if the balloon touches the bottom or the upside of a rectangular object
- */
-function isInHorizontalCollision(ball, object) {
-	var collision = false;
-	if (isBalloonBetweenRectangleX(ball, object)) {
-		if (
-			ball.center.y + ball.size.radius >= object.position.y + 3 &&
-			ball.center.y - ball.size.radius <= object.position.y + object.height - 3
-		) {
-			collision = true;
-		}
-	}
-	return collision;
+function isInHorizontalCollision(e, t) {
+  var i = !1;
+  return (
+    isBalloonBetweenRectangleX(e, t) &&
+      e.center.y + e.size.radius >= t.position.y + 3 &&
+      e.center.y - e.size.radius <= t.position.y + t.height - 3 &&
+      (i = !0),
+    i
+  );
 }
-
-/**
- * Check if there is an horizontal collision
- * 
- * @param {*} ball The ball we want to check
- * @param {*} object The object as a rectangle
-
- * @return {boolean} True if the balloon touches the left or the right of a rectangular object
- */
-function isInVerticalCollision(ball, object) {
-	var collision = false;
-	if (isBalloonBetweenRectangleY(ball, object)) {
-		if (
-			ball.center.x + ball.size.radius >= object.position.x + 5 &&
-			ball.center.x - ball.size.radius <= object.position.x - 5 + object.width
-		) {
-			collision = true;
-		}
-	}
-	return collision;
+function isInVerticalCollision(e, t) {
+  var i = !1;
+  return (
+    isBalloonBetweenRectangleY(e, t) &&
+      e.center.x + e.size.radius >= t.position.x + 5 &&
+      e.center.x - e.size.radius <= t.position.x - 5 + t.width &&
+      (i = !0),
+    i
+  );
 }
-
-/**
- * Check if the balloon is colliding with the bottom right corner
- * 
- * @param {*} ball The ball we want to check
- * @param {*} object The object as a rectangle
-
- * @return {boolean} True is yes, else false
- */
-function isBalloonCollidingBottomRightCorner(ball, object) {
-	let bottomRightCorner = {
-		x: object.position.x + object.width,
-		y: object.position.y + object.height
-	};
-	return (
-		squareDistanceBetweenPoints(ball.center, bottomRightCorner) <=
-		ball.size.radius * ball.size.radius
-	);
+function isBalloonCollidingBottomRightCorner(e, t) {
+  let i = { x: t.position.x + t.width, y: t.position.y + t.height };
+  return (
+    squareDistanceBetweenPoints(e.center, i) <= e.size.radius * e.size.radius
+  );
 }
-
-/**
- * Check if the balloon is colliding with the top right corner
- * 
- * @param {*} ball The ball we want to check
- * @param {*} object The object as a rectangle
-
- * @return {boolean} True is yes, else false
- */
-function isBalloonCollidingTopRightCorner(ball, object) {
-	let topRightCorner = {
-		x: object.position.x + object.width,
-		y: object.position.y
-	};
-	return (
-		squareDistanceBetweenPoints(ball.center, topRightCorner) <=
-		ball.size.radius * ball.size.radius
-	);
+function isBalloonCollidingTopRightCorner(e, t) {
+  let i = { x: t.position.x + t.width, y: t.position.y };
+  return (
+    squareDistanceBetweenPoints(e.center, i) <= e.size.radius * e.size.radius
+  );
 }
-
-/**
- * Check if the balloon is colliding with the top left corner
- * 
- * @param {*} ball The ball we want to check
- * @param {*} object The object as a rectangle
-
- * @return {boolean} True is yes, else false
- */
-function isBalloonCollidingTopLeftCorner(ball, object) {
-	let topLeftCorner = { x: object.position.x, y: object.position.y };
-	return (
-		squareDistanceBetweenPoints(ball.center, topLeftCorner) <=
-		ball.size.radius * ball.size.radius
-	);
+function isBalloonCollidingTopLeftCorner(e, t) {
+  let i = { x: t.position.x, y: t.position.y };
+  return (
+    squareDistanceBetweenPoints(e.center, i) <= e.size.radius * e.size.radius
+  );
 }
-
-/**
- * Check if the balloon is colliding with the top right corner
- * 
- * @param {*} ball The ball we want to check
- * @param {*} object The object as a rectangle
-
- * @return {boolean} True is yes, else false
- */
-function isBalloonCollidingBottomLeftCorner(ball, object) {
-	let bottomLeftCorner = {
-		x: object.position.x,
-		y: object.position.y + object.height
-	};
-	return (
-		squareDistanceBetweenPoints(ball.center, bottomLeftCorner) <=
-		ball.size.radius * ball.size.radius
-	);
+function isBalloonCollidingBottomLeftCorner(e, t) {
+  let i = { x: t.position.x, y: t.position.y + t.height };
+  return (
+    squareDistanceBetweenPoints(e.center, i) <= e.size.radius * e.size.radius
+  );
 }
-
-/**
- * Make sure the balloons are not colliding with rectangle objects like platforms
- * 
- * @param {*} ball - The balloon
- * @param {*} object - A rectangular object
- *
- * @returns {boolean} True if the balloon collided with the object
- */
-function keepBalloonOutsideObjects(ball, object) {
-	if (object.exist) {
-		var correction = false;
-
-		// Is the balloon near the object ? Simple and quick verification (optimize)
-		if (isBalloonNearObject(ball, object)) {
-			// Collision with horizontal surfaces
-			if (isInHorizontalCollision(ball, object)) {
-				if (ball.center.y < object.position.y) {
-					if (ball.velocity.y > 3) {
-						ball.velocity.y *= -1;
-					} else {
-						ball.velocity.y = -3;
-					}
-				} else {
-					ball.velocity.y *= -1;
-				}
-				correction = true;
-
-				// or collision with vertical surfaces
-			} else if (isInVerticalCollision(ball, object)) {
-				ball.velocity.x *= -1;
-				correction = true;
-
-				// or in collision with angles
-			} else {
-				//Top left corner
-				if (isBalloonCollidingTopLeftCorner(ball, object)) {
-					correction = true;
-					// Equation of the angle straith line (@return y)
-					function equation(x) {
-						return -(x - object.position.x) + object.position.y;
-					}
-
-					// The balloon is in the vertical area
-					if (ball.center.y > equation(ball.center.x)) {
-						ball.velocity.x *= -1;
-
-						// The balloon is in the horizontal area
-					} else {
-						ball.velocity.y *= -1;
-					}
-
-					//Top right corner
-				} else if (isBalloonCollidingTopRightCorner(ball, object)) {
-					correction = true;
-					// Equation of the angle straith line (@return y)
-					function equation(x) {
-						return x - object.position.x - object.width + object.position.y;
-					}
-
-					// The balloon is in the vertical area
-					if (ball.center.y > equation(ball.center.x)) {
-						ball.velocity.x *= -1;
-
-						// The balloon is in the horizontal area
-					} else {
-						ball.velocity.y *= -1;
-					}
-
-					// Bottom left corner
-				} else if (isBalloonCollidingBottomLeftCorner(ball, object)) {
-					correction = true;
-					// Equation of the angle straith line (@return y)
-					function equation(x) {
-						return x - object.position.x + object.position.y + object.height;
-					}
-
-					// The balloon is in the vertical area
-					if (ball.center.y < equation(ball.center.x)) {
-						ball.velocity.x *= -1;
-
-						// The balloon is in the horizontal area
-					} else {
-						ball.velocity.y *= -1;
-					}
-
-					// Bottom right corner
-				} else if (isBalloonCollidingBottomRightCorner(ball, object)) {
-					correction = true;
-					// Equation of the angle straith line (@return y)
-					function equation(x) {
-						return (
-							x -
-							object.position.x -
-							object.width +
-							object.position.y +
-							object.height
-						);
-					}
-
-					// The balloon is in the vertical area
-					if (ball.center.y < equation(ball.center.x)) {
-						ball.velocity.x *= -1;
-
-						// The balloon is in the horizontal area
-					} else {
-						ball.velocity.y *= -1;
-					}
-				}
-			}
-		}
-	}
-	return correction;
+function keepBalloonOutsideObjects(e, t) {
+  if (t.exist) {
+    var i = !1;
+    if (isBalloonNearObject(e, t))
+      if (isInHorizontalCollision(e, t))
+        e.center.y < t.position.y
+          ? e.velocity.y > 3
+            ? (e.velocity.y *= -1)
+            : (e.velocity.y = -3)
+          : (e.velocity.y *= -1),
+          (i = !0);
+      else if (isInVerticalCollision(e, t)) (e.velocity.x *= -1), (i = !0);
+      else if (isBalloonCollidingTopLeftCorner(e, t)) {
+        function o(e) {
+          return -(e - t.position.x) + t.position.y;
+        }
+        (i = !0),
+          e.center.y > o(e.center.x)
+            ? (e.velocity.x *= -1)
+            : (e.velocity.y *= -1);
+      } else if (isBalloonCollidingTopRightCorner(e, t)) {
+        function o(e) {
+          return e - t.position.x - t.width + t.position.y;
+        }
+        (i = !0),
+          e.center.y > o(e.center.x)
+            ? (e.velocity.x *= -1)
+            : (e.velocity.y *= -1);
+      } else if (isBalloonCollidingBottomLeftCorner(e, t)) {
+        function o(e) {
+          return e - t.position.x + t.position.y + t.height;
+        }
+        (i = !0),
+          e.center.y < o(e.center.x)
+            ? (e.velocity.x *= -1)
+            : (e.velocity.y *= -1);
+      } else if (isBalloonCollidingBottomRightCorner(e, t)) {
+        function o(e) {
+          return e - t.position.x - t.width + t.position.y + t.height;
+        }
+        (i = !0),
+          e.center.y < o(e.center.x)
+            ? (e.velocity.x *= -1)
+            : (e.velocity.y *= -1);
+      }
+  }
+  return i;
 }
-
-/**
- * Collision with any angles with the others functions
- * 
- * @param ball The ball we want to check
- * @param object The object as a rectangle
- * 
- * @return {boolean} True if there is a collision
- */
-function collisionsAngles(ball, object) {
-	return (
-		isBalloonCollidingBottomLeftCorner(ball, object) ||
-		isBalloonCollidingBottomRightCorner(ball, object) ||
-		isBalloonCollidingTopLeftCorner(ball, object) ||
-		isBalloonCollidingTopRightCorner(ball, object)
-	);
+function collisionsAngles(e, t) {
+  return (
+    isBalloonCollidingBottomLeftCorner(e, t) ||
+    isBalloonCollidingBottomRightCorner(e, t) ||
+    isBalloonCollidingTopLeftCorner(e, t) ||
+    isBalloonCollidingTopRightCorner(e, t)
+  );
 }
-
-/**
- * Call the other testing functions and return if there's a collision
- * 
- * @param ball The ball we want to check
- * @param object The object as a rectangle
- * 
- * @return {boolean} True is yes, else false 
- */
-function collisionsWithPlayer(ball, object) {
-	var collisionAngles = collisionsAngles(ball, object).collision;
-	var collisionY = isInVerticalCollision(ball, object);
-	var collisionX = isInHorizontalCollision(ball, object);
-	return collisionAngles || collisionX || collisionY;
+function collisionsWithPlayer(e, t) {
+  var i = collisionsAngles(e, t).collision,
+    o = isInVerticalCollision(e, t),
+    s = isInHorizontalCollision(e, t);
+  return i || s || o;
 }
-
-/**
- * Create a random item when splitting a balloon directly in the 'items' array
- * 
- * @param {*} ball The splitted balloon
- */
-function createItem(ball) {
-	if (ball.size.number > 0) {
-		items[items.length] = {
-			type: Math.floor(Math.random() * MAX_ITEM) + 1,
-			position: { x: ball.center.x, y: ball.center.y },
-			height: 40,
-			width: 40,
-			time: 0
-		};
-	}
+function createItem(e) {
+  e.size.number > 0 &&
+    (items[items.length] = {
+      type: Math.floor(Math.random() * MAX_ITEM) + 1,
+      position: { x: e.center.x, y: e.center.y },
+      height: 40,
+      width: 40,
+      time: 0,
+    });
 }
-
-/**
- * Split a balloon and maybe make an item spawn
- * Delete the old balloon from the 'balloons' array
- * 
- * @param {*} ball The ball you want to split
- */
-function splitBalloon(ball) {
-	//Two new balloons if the balloons is not of the minimal size
-	if (ball.size.number > 1) {
-		var oldBall = ball;
-		var sizeVelocityX;
-		switch (ball.size.number) {
-			case 4:
-				sizeVelocityX = 0.66;
-				break;
-
-			case 3:
-				sizeVelocityX = 0.75;
-				break;
-
-			case 2:
-				sizeVelocityX = 1;
-				break;
-		}
-
-		balloons[balloons.length] = {
-			center: { x: oldBall.center.x - 10, y: oldBall.center.y - 6 },
-			size: BALLOON_SIZE[oldBall.size.number - 1],
-			velocity: { x: -sizeVelocityX, y: -2 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		};
-
-		balloons[balloons.length] = {
-			center: { x: oldBall.center.x + 10, y: oldBall.center.y - 4 },
-			size: BALLOON_SIZE[oldBall.size.number - 1],
-			velocity: { x: sizeVelocityX, y: -2 },
-			gravity: { x: 0, y: 9.81 / 1000 }
-		};
-
-		//Maybe an item is spawning
-		if (Math.random() < 0.66) {
-			createItem(oldBall);
-		}
-	}
-	//Delete the balloon
-	ball.size = BALLOON_SIZE[0];
+function splitBalloon(e) {
+  if (e.size.number > 1) {
+    var t,
+      i = e;
+    switch (e.size.number) {
+      case 4:
+        t = 0.66;
+        break;
+      case 3:
+        t = 0.75;
+        break;
+      case 2:
+        t = 1;
+    }
+    (balloons[balloons.length] = {
+      center: { x: i.center.x - 10, y: i.center.y - 6 },
+      size: BALLOON_SIZE[i.size.number - 1],
+      velocity: { x: -t, y: -2 },
+      gravity: { x: 0, y: 9.81 / 1e3 },
+    }),
+      (balloons[balloons.length] = {
+        center: { x: i.center.x + 10, y: i.center.y - 4 },
+        size: BALLOON_SIZE[i.size.number - 1],
+        velocity: { x: t, y: -2 },
+        gravity: { x: 0, y: 9.81 / 1e3 },
+      }),
+      Math.random() < 0.66 && createItem(i);
+  }
+  e.size = BALLOON_SIZE[0];
 }
-
-/**
- * Update the player powerOn if he touch an item
- * Directly in the 'player'
- */
 function playerTouchItem() {
-	for (var i = 0; i < items.length; i++) {
-		if (items[i].type != -1) {
-			if (
-				(items[i].position.x > player.position.x &&
-					items[i].position.x < player.position.x + player.width) ||
-				(items[i].position.x + items[i].width > player.position.x &&
-					items[i].position.x + items[i].width <
-					player.position.x + player.width)
-			) {
-				if (
-					(items[i].position.y > player.position.y &&
-						items[i].position.y < player.position.y + player.height) ||
-					(items[i].position.y + items[i].height > player.position.y &&
-						items[i].position.y + items[i].height <
-						player.position.y + player.height)
-				) {
-					player.score += 50;
-					switch (items[i].type) {
-						case GRAPPLE_HOOK_ITEM:
-						case DOUBLE_HOOK_ITEM:
-						case TRIDENT_ITEM:
-						case GUN_ITEM:
-							player.powerOn = items[i].type;
-							items[i].type = -1;
-							break;
-
-						case TIMER_BOOST_ITEM:
-							timer += 10;
-							items[i].type = -1;
-							break;
-
-						case DYNAMITE_ITEM:
-							dynamiteExplode();
-							items[i].type = -1;
-							break;
-
-						case FREEZE_ITEM:
-							areBalloonsFreeze = true;
-							balloonsFreezeTimer = Date.now();
-							items[i].type = -1;
-							balloonBlinkTimer = Date.now();
-							break;
-
-						case SHIELD_ITEM:
-							player.shieldOn = true;
-							items[i].type = -1;
-							break;
-					}
-				}
-			}
-		}
-	}
+  for (var e = 0; e < items.length; e++)
+    if (
+      -1 != items[e].type &&
+      ((items[e].position.x > player.position.x &&
+        items[e].position.x < player.position.x + player.width) ||
+        (items[e].position.x + items[e].width > player.position.x &&
+          items[e].position.x + items[e].width <
+            player.position.x + player.width)) &&
+      ((items[e].position.y > player.position.y &&
+        items[e].position.y < player.position.y + player.height) ||
+        (items[e].position.y + items[e].height > player.position.y &&
+          items[e].position.y + items[e].height <
+            player.position.y + player.height))
+    )
+      switch (((player.score += 50), items[e].type)) {
+        case GRAPPLE_HOOK_ITEM:
+        case DOUBLE_HOOK_ITEM:
+        case TRIDENT_ITEM:
+        case GUN_ITEM:
+          (player.powerOn = items[e].type), (items[e].type = -1);
+          break;
+        case TIMER_BOOST_ITEM:
+          (timer += 10), (items[e].type = -1);
+          break;
+        case DYNAMITE_ITEM:
+          dynamiteExplode(), (items[e].type = -1);
+          break;
+        case FREEZE_ITEM:
+          (areBalloonsFreeze = !0),
+            (balloonsFreezeTimer = Date.now()),
+            (items[e].type = -1),
+            (balloonBlinkTimer = Date.now());
+          break;
+        case SHIELD_ITEM:
+          (player.shieldOn = !0), (items[e].type = -1);
+      }
 }
-
-/**
- * Dynamite item : explode all the balloons until they reach their minimal size
- * Modify directly in the 'balloons' array
- */
 function dynamiteExplode() {
-	var bigBalloonRemaining = true;
-
-	while (bigBalloonRemaining) {
-		bigBalloonRemaining = false;
-		for (var i = 0; i < balloons.length; i++) {
-			if (balloons[i].size.number > 1) {
-				player.score += balloons[i].size.radius * 10;
-
-				var oldBall = balloons[i];
-
-				balloons[balloons.length] = {
-					center: { x: oldBall.center.x - 3, y: oldBall.center.y },
-					size: BALLOON_SIZE[oldBall.size.number - 1],
-					velocity: { x: -1, y: -2 + Math.random() },
-					gravity: { x: 0, y: 9.81 / 1000 }
-				};
-
-				balloons[balloons.length] = {
-					center: { x: oldBall.center.x + 3, y: oldBall.center.y },
-					size: BALLOON_SIZE[oldBall.size.number - 1],
-					velocity: { x: 1, y: -2 + Math.random() },
-					gravity: { x: 0, y: 9.81 / 1000 }
-				};
-
-				//Maybe an item is spawning
-				if (Math.random() < 0.34) {
-					createItem(oldBall);
-				}
-
-				balloons[i].size = BALLOON_SIZE[0];
-
-				bigBalloonRemaining = true;
-			}
-		}
-	}
+  for (var e = !0; e; ) {
+    e = !1;
+    for (var t = 0; t < balloons.length; t++)
+      if (balloons[t].size.number > 1) {
+        player.score += 10 * balloons[t].size.radius;
+        var i = balloons[t];
+        (balloons[balloons.length] = {
+          center: { x: i.center.x - 3, y: i.center.y },
+          size: BALLOON_SIZE[i.size.number - 1],
+          velocity: { x: -1, y: -2 + Math.random() },
+          gravity: { x: 0, y: 9.81 / 1e3 },
+        }),
+          (balloons[balloons.length] = {
+            center: { x: i.center.x + 3, y: i.center.y },
+            size: BALLOON_SIZE[i.size.number - 1],
+            velocity: { x: 1, y: -2 + Math.random() },
+            gravity: { x: 0, y: 9.81 / 1e3 },
+          }),
+          Math.random() < 0.34 && createItem(i),
+          (balloons[t].size = BALLOON_SIZE[0]),
+          (e = !0);
+      }
+  }
 }
-
-// -----------------------------------------------------------------------
-// ################################ Game  ################################
-// -----------------------------------------------------------------------
-
-/**
- * Initialization of the game
- */
 function init() {
-	// Initizalisation of the global var context
-	context = document.getElementById("cvs").getContext("2d");
-	context.width = document.getElementById("cvs").width;
-	context.height = document.getElementById("cvs").height;
-
-	// initialization with level
-	levelInitialization(1);
-
-	//Pause if it is not on focus
-	document.body.onblur = function () {
-		isOnFocus = false;
-	};
-	document.body.onfocus = function () {
-		isOnFocus = true;
-	};
-
-	// 2 listeners on the keyboard (keyup and keydown)
-	document.addEventListener("keydown", captureKeyboardPress);
-	document.addEventListener("keyup", captureKeyboardReleased);
-	// 1 listener on the mouse
-	document.addEventListener("click", captureClicSouris);
-
-	// Go my little game loop, and never stop
-	gameLoop();
+  ((context = document
+    .getElementById("cvs")
+    .getContext("2d")).width = document.getElementById("cvs").width),
+    (context.height = document.getElementById("cvs").height),
+    levelInitialization(1),
+    (document.body.onblur = function () {
+      isOnFocus = !1;
+    }),
+    (document.body.onfocus = function () {
+      isOnFocus = !0;
+    }),
+    document.addEventListener("keydown", captureKeyboardPress),
+    document.addEventListener("keyup", captureKeyboardReleased),
+    document.addEventListener("click", captureClicSouris),
+    gameLoop();
 }
-
-/**
- * Game loop
- */
 function gameLoop() {
-	var delta = Date.now() - lastUpdate;
-	lastUpdate = Date.now();
-	// Run the game if it is not on pause
-	if (!isOnFocus || pause) {
-        document.title = "Pang - en pause";
-        //Pause
-        context.fillStyle = "black";
-        context.fillText("PAUSE",500,300);
-    } else {
-		if ((victory || defeat) && numLevel > 0) {
-			if (victory) {
-				document.title = "Pang - gagné !";
-			} else {
-				document.title = "Pang - perdu...";
-			}
-			// draw the game
-			render();
-		} else {
-			document.title = "Pang";
-
-			// update of the game's state
-			update(delta);
-			// draw the game
-			render();
-		}
-	}
-
-	requestAnimationFrame(gameLoop);
+  var e = Date.now() - lastUpdate;
+  (lastUpdate = Date.now()),
+    !isOnFocus || pause
+      ? ((document.title = "Pang - en pause"),
+        (context.fillStyle = "black"),
+        context.fillText("PAUSE", 500, 300))
+      : (victory || defeat) && numLevel > 0
+      ? ((document.title = victory ? "Pang - gagné !" : "Pang - perdu..."),
+        render())
+      : ((document.title = "Pang"), update(e), render()),
+    requestAnimationFrame(gameLoop);
 }
-
-/**
- *  Game update
- * 
- *  @param delta The time between now and the last update
- */
-function update(delta) {
-	// update timer
-	timer -= delta / 1000;
-
-	//disable the invincibilty 3s after being hit while having a shield
-	if (Date.now() - shieldTimer > 3000) {
-		isInvincible = false;
-	}
-
-	// Make the player invincible while the balloons are freezed
-	if (areBalloonsFreeze) {
-		isInvincible = true;
-		if (Date.now() - balloonsFreezeTimer > 5000) {
-			areBalloonsFreeze = false;
-			isInvincible = false;
-		}
-	} else {
-		// Update balloons position
-		for (var i = 0; i < balloons.length; i++) {
-			if (balloons[i].size.number > 0) {
-				// Update balloons[i].velocity
-				balloons[i].velocity.x += balloons[i].gravity.x * delta;
-				balloons[i].velocity.y += balloons[i].gravity.y * delta;
-
-				newballoon = {
-					center: { x: balloons[i].center.x, y: balloons[i].center.y },
-					size: balloons[i].size,
-					velocity: { x: balloons[i].velocity.x, y: balloons[i].velocity.y },
-					gravity: { x: balloons[i].gravity.x, y: balloons[i].gravity.y }
-				};
-
-				// Update balloons[i].center
-				newballoon.center.x += balloons[i].velocity.x * delta * BALLOON_SPEED;
-				newballoon.center.y += balloons[i].velocity.y * delta * BALLOON_SPEED;
-
-				//No, you will not stick out
-				var bordersCorrection = keepBalloonWithinBorders(newballoon);
-				if (!bordersCorrection) {
-					//Don't go into platforms !
-					var correction = false;
-					var j = 0;
-					while (j < platforms.length && !correction) {
-						correction = keepBalloonOutsideObjects(newballoon, platforms[j]);
-						j++;
-					}
-				}
-
-				if (!correction) {
-					balloons[i].center.x = newballoon.center.x;
-					balloons[i].center.y = newballoon.center.y;
-				}
-				balloons[i].velocity.x = newballoon.velocity.x;
-				balloons[i].velocity.y = newballoon.velocity.y;
-			}
-		}
-
-		//Verifying that balloons do not crash into something
-		for (var i = 0; i < balloons.length; i++) {
-			if (balloons[i].size.number > 0) {
-			}
-		}
-	}
-
-	// Weapons will deal a lot of damages
-	for (var i = 0; i < weapons.length; i++) {
-		// Weapon is going up
-		if (weapons[i].shooting == true) {
-			switch (weapons[i].type) {
-				case GRAPPLE_HOOK_NUMBER:
-				case DOUBLE_HOOK_NUMBER:
-				case TRIDENT_NUMBER:
-					weapons[i].length += HOOK_SPEED * delta;
-					break;
-
-				case GUN_NUMBER:
-					weapons[i].position.y -= BULLET_SPEED * delta;
-					break;
-			}
-		} else {
-			//Increase the timer of the trident
-			if (weapons[i].type == TRIDENT_NUMBER) {
-				weapons[i].time += delta / 1000;
-			}
-		}
-
-		stopWeapon(weapons[i]);
-	}
-
-	// Items are falling and getting older
-	for (var i = 0; i < items.length; i++) {
-		if (
-			items[i].type != -1 &&
-			isNotOnPlatformOrGround(items[i]) &&
-			items[i].position.y + items[i].height < cvs.height
-		) {
-			items[i].position.y = items[i].position.y + (GRAVITY.y * delta) / 10000;
-		} else {
-			items[i].time += delta / 1000;
-
-			if (items[i].time > 4) {
-				items[i].type = -1;
-			}
-		}
-	}
-
-	// New player's position
-	var newPosXPlayer = player.position.x + (player.speed.x * delta) / 1000,
-		newPosYPlayer = player.position.y + (player.speed.y * delta) / 1000;
-	var newSpdXPlayer = player.speed.x + (isGravity * GRAVITY.x * delta) / 1000,
-		newSpdYPlayer = player.speed.y + (isGravity * GRAVITY.y * delta) / 1000;
-	if (findLadder(player) != -1) {
-		if (
-			newPosYPlayer + player.height <
-			ladders[findLadder(player)].position.y
-		) {
-			newPosYPlayer = ladders[findLadder(player)].position.y - player.height;
-		}
-	} else {
-		if (newPosYPlayer < player.position.y) {
-			newPosYPlayer = player.position.y;
-		}
-	}
-
-	if (isNotOnPlatformOrGround(player)) {
-		isGravity = 1;
-	} else {
-		isGravity = 0;
-	}
-
-	var willCollide = false;
-	var obstacleNumber = -1;
-	for (var i = 0; i < platforms.length; i++) {
-		if (
-			isPlayerWithinObject(player, newPosXPlayer, newPosYPlayer, platforms[i])
-		) {
-			willCollide = true;
-			obstacleNumber = i;
-		}
-	}
-
-	if (willCollide) {
-		//Vertical
-		if (
-			newSpdYPlayer < 0 &&
-			platforms[obstacleNumber].position.y + platforms[obstacleNumber].height <=
-			player.position.y
-		) {
-			newPosYPlayer =
-				platforms[obstacleNumber].position.y + platforms[obstacleNumber].height;
-			newSpdYPlayer = 0;
-		} else {
-			//Horizontal
-			if (newSpdXPlayer > 0) {
-				newPosXPlayer = platforms[obstacleNumber].position.x - player.width;
-			} else if (newSpdXPlayer < 0) {
-				newPosXPlayer =
-					platforms[obstacleNumber].position.x +
-					platforms[obstacleNumber].width;
-			}
-			newSpdXPlayer = player.speed.x;
-		}
-	}
-
-	// Update player
-	player.position.x = newPosXPlayer;
-	player.position.y = newPosYPlayer;
-	player.speed.x = newSpdXPlayer;
-	player.speed.y = newSpdYPlayer;
-	keepPlayerWithinBorder();
-
-	// Maybe the player is touching one item
-	playerTouchItem();
-
-	//Detect the victory
-	if (isVictory()) {
-		victory = true;
-		player.score += 5 * Math.floor(timer);
-	}
-
-	//Detect the defeat
-	if (!victory) {
-		for (var i = 0; i < balloons.length; i++) {
-			if (isDefeat(balloons[i])) {
-				defeat = true;
-			}
-		}
-	}
+function update(e) {
+  if (
+    ((timer -= e / 1e3),
+    Date.now() - shieldTimer > 3e3 && (isInvincible = !1),
+    areBalloonsFreeze)
+  )
+    (isInvincible = !0),
+      Date.now() - balloonsFreezeTimer > 5e3 &&
+        ((areBalloonsFreeze = !1), (isInvincible = !1));
+  else {
+    for (var t = 0; t < balloons.length; t++)
+      if (balloons[t].size.number > 0) {
+        if (
+          ((balloons[t].velocity.x += balloons[t].gravity.x * e),
+          (balloons[t].velocity.y += balloons[t].gravity.y * e),
+          (newballoon = {
+            center: { x: balloons[t].center.x, y: balloons[t].center.y },
+            size: balloons[t].size,
+            velocity: { x: balloons[t].velocity.x, y: balloons[t].velocity.y },
+            gravity: { x: balloons[t].gravity.x, y: balloons[t].gravity.y },
+          }),
+          (newballoon.center.x += balloons[t].velocity.x * e * BALLOON_SPEED),
+          (newballoon.center.y += balloons[t].velocity.y * e * BALLOON_SPEED),
+          !keepBalloonWithinBorders(newballoon))
+        )
+          for (var i = !1, o = 0; o < platforms.length && !i; )
+            (i = keepBalloonOutsideObjects(newballoon, platforms[o])), o++;
+        i ||
+          ((balloons[t].center.x = newballoon.center.x),
+          (balloons[t].center.y = newballoon.center.y)),
+          (balloons[t].velocity.x = newballoon.velocity.x),
+          (balloons[t].velocity.y = newballoon.velocity.y);
+      }
+    for (t = 0; t < balloons.length; t++) balloons[t].size.number;
+  }
+  for (t = 0; t < weapons.length; t++) {
+    if (1 == weapons[t].shooting)
+      switch (weapons[t].type) {
+        case GRAPPLE_HOOK_NUMBER:
+        case DOUBLE_HOOK_NUMBER:
+        case TRIDENT_NUMBER:
+          weapons[t].length += HOOK_SPEED * e;
+          break;
+        case GUN_NUMBER:
+          weapons[t].position.y -= BULLET_SPEED * e;
+      }
+    else weapons[t].type == TRIDENT_NUMBER && (weapons[t].time += e / 1e3);
+    stopWeapon(weapons[t]);
+  }
+  for (t = 0; t < items.length; t++)
+    -1 != items[t].type &&
+    isNotOnPlatformOrGround(items[t]) &&
+    items[t].position.y + items[t].height < cvs.height
+      ? (items[t].position.y = items[t].position.y + (GRAVITY.y * e) / 1e4)
+      : ((items[t].time += e / 1e3), items[t].time > 4 && (items[t].type = -1));
+  var s = player.position.x + (player.speed.x * e) / 1e3,
+    n = player.position.y + (player.speed.y * e) / 1e3,
+    l = player.speed.x + (isGravity * GRAVITY.x * e) / 1e3,
+    r = player.speed.y + (isGravity * GRAVITY.y * e) / 1e3;
+  -1 != findLadder(player)
+    ? n + player.height < ladders[findLadder(player)].position.y &&
+      (n = ladders[findLadder(player)].position.y - player.height)
+    : n < player.position.y && (n = player.position.y),
+    (isGravity = isNotOnPlatformOrGround(player) ? 1 : 0);
+  var a = !1,
+    y = -1;
+  for (t = 0; t < platforms.length; t++)
+    isPlayerWithinObject(player, s, n, platforms[t]) && ((a = !0), (y = t));
+  if (
+    (a &&
+      (r < 0 &&
+      platforms[y].position.y + platforms[y].height <= player.position.y
+        ? ((n = platforms[y].position.y + platforms[y].height), (r = 0))
+        : (l > 0
+            ? (s = platforms[y].position.x - player.width)
+            : l < 0 && (s = platforms[y].position.x + platforms[y].width),
+          (l = player.speed.x))),
+    (player.position.x = s),
+    (player.position.y = n),
+    (player.speed.x = l),
+    (player.speed.y = r),
+    keepPlayerWithinBorder(),
+    playerTouchItem(),
+    isVictory() && ((victory = !0), (player.score += 5 * Math.floor(timer))),
+    !victory)
+  )
+    for (t = 0; t < balloons.length; t++)
+      isDefeat(balloons[t]) && (defeat = !0);
 }
-
-/**
- *  Game render
- */
 function render() {
-	if (numLevel == 0) {
-		// ---------------
-		// MENU
-		// ---------------
-
-		// Black background
-		context.fillStyle = "black";
-		context.fillRect(0, 0, context.width, context.height);
-
-		// Pang logo
-		context.drawImage(logo, (context.width - 400) / 2, 50, 400, 290);
-
-		// Buttons display
-		var positionXButton,
-			positionXText1,
-			textButton1,
-			positionXText2,
-			textButton2;
-		context.font = "bold 17px sans-serif";
-		context.textBaseline = "top";
-		for (var i = 0; i < 5; i++) {
-			// buttons
-			positionXButton = margin + i * (marginButton + widthButton);
-			context.fillStyle = "#E7DBD0";
-			context.drawImage(buttons, positionXButton, 400, widthButton, heightButton);
-			context.drawImage(buttons, positionXButton, 400 + heightButton + 40, widthButton, heightButton);
-
-			// texts
-			textButton1 = "Niveau " + (i + 1);
-			textButton2 = "Niveau " + (i + 6);
-			positionXText1 =
-				positionXButton +
-				(widthButton - context.measureText(textButton1).width) / 2;
-			positionXText2 =
-				positionXButton +
-				(widthButton - context.measureText(textButton2).width) / 2;
-			context.fillStyle = "#222222";
-			context.fillText(
-				textButton1,
-				positionXText1,
-				400 - (17 - heightButton) / 2
-			); // 1 to 5
-			context.fillText(
-				textButton2,
-				positionXText2,
-				400 + heightButton + 40 - (17 - heightButton) / 2
-			); // 6 to 10
-		}
-		context.textBaseline = "alphabetic";
-	} else {
-		// ---------------
-		// GAME
-		// ---------------
-
-		// Wiping the screen
-		//context.clearRect(0, 0, context.width, context.height);
-		context.clearRect(0, 0, 1080, 608);
-
-        // Level text
-        var textLevel = "LEVEL "+numLevel;
-        context.fillStyle = "white";
-		context.strokeStyle = "black";
-		context.lineWidth = 1.6;
-		context.font = "bolder 30px Arial";
-		context.fillText(
-			textLevel,
-			context.width/2 - context.measureText(textLevel).width+60,
-			40
+  if (0 == numLevel) {
+    var e, t, i, o, s;
+    (context.fillStyle = "black"),
+      context.fillRect(0, 0, context.width, context.height),
+      context.drawImage(logo, (context.width - 400) / 2, 50, 400, 290),
+      (context.font = "bold 17px sans-serif"),
+      (context.textBaseline = "top");
+    for (var n = 0; n < 5; n++)
+      (e = margin + n * (marginButton + widthButton)),
+        (context.fillStyle = "#E7DBD0"),
+        context.drawImage(buttons, e, 400, widthButton, heightButton),
+        context.drawImage(
+          buttons,
+          e,
+          400 + heightButton + 40,
+          widthButton,
+          heightButton
+        ),
+        (i = "Niveau " + (n + 1)),
+        (s = "Niveau " + (n + 6)),
+        (t = e + (widthButton - context.measureText(i).width) / 2),
+        (o = e + (widthButton - context.measureText(s).width) / 2),
+        (context.fillStyle = "#222222"),
+        context.fillText(i, t, 400 - (17 - heightButton) / 2),
+        context.fillText(
+          s,
+          o,
+          400 + heightButton + 40 - (17 - heightButton) / 2
         );
-        context.strokeText(
-			textLevel,
-			context.width/2 - context.measureText(textLevel).width+60,
-			40
-		);
-
-
-		// Timer textvar pauseBlinkTimer = Date.now();
-
-		var textTime = "TIME : ";
-		if (Math.floor(timer) > 10 && Math.floor(timer) < 100) {
-			textTime += "0";
-		} else {
-			if (Math.floor(timer) < 10) {
-				textTime += "00";
-			}
-		}
-		textTime += Math.floor(timer);
-		context.fillStyle = "white";
-		context.strokeStyle = "black";
-		context.lineWidth = 1.6;
-		context.font = "bolder 30px Arial";
-		context.fillText(
-			textTime,
-			context.width - context.measureText(textTime).width - 20,
-			40
-		);
-		context.strokeText(
-			textTime,
-			context.width - context.measureText(textTime).width - 20,
-			40
-		);
-
-		// Score text
-		var textScore = "SCORE : " + player.score;
-		context.lineWidth = 1.3;
-		context.font = "bolder 23px Arial";
-		context.fillText(textScore, 20, 30);
-		context.strokeText(textScore, 20, 30);
-
-		// Lives text
-		var textLives = "LIVES : ";
-		if (player.livesNumber > 0) {
-			for (var i = 0; i < player.livesNumber; i++) {
-				textLives += "I";
-			}
-		} else {
-			textLives += "0";
-		}
-		context.fillText(textLives, 20, 57);
-		context.strokeText(textLives, 20, 57);
-
-		// platforms drawing
-		for (var i = 0; i < platforms.length; i++) {
-			if (platforms[i].exist) {
-				if (platforms[i].isDestructible) {
-					context.fillStyle = DESTRUCTIBLE_PLATFORM_COLOR;
-				} else {
-					context.fillStyle = PLATFORM_COLOR;
-				}
-
-				context.fillRect(
-					platforms[i].position.x,
-					platforms[i].position.y,
-					platforms[i].width,
-					platforms[i].height
-				);
-			}
-		}
-
-		// ladders drawing
-		for (var i = 0; i < ladders.length; i++) {
-			context.drawImage(
-				LADDERS_IMAGE,
-				ladders[i].position.x,
-				ladders[i].position.y,
-				ladders[i].width,
-				ladders[i].height
-			);
-		}
-
-		// balloons drawing
-		if (
-			!areBalloonsFreeze ||
-			Date.now() - balloonBlinkTimer < 4000 ||
-			(Date.now() - balloonBlinkTimer) % 400 < 100
-		) {
-			for (var i = 0; i < balloons.length; i++) {
-				if (balloons[i].size.number > 0) {
-					fillCircle(balloons[i]);
-				}
-			}
-		}
-
-		// items drawing
-		for (var i = 0; i < items.length; i++) {
-			if (items[i].type != -1) {
-				if (items[i].time < 2) {
-					context.fillStyle = "white";
-				} else if (items[i].time < 3) {
-					context.fillStyle = "darkgrey";
-				} else {
-					context.fillStyle = "black";
-				}
-				context.beginPath();
-				context.arc(
-					items[i].position.x + items[i].width / 2,
-					items[i].position.y + items[i].height / 2,
-					items[i].width / 2,
-					0,
-					2 * Math.PI
-				);
-				context.fill();
-
-				switch (items[i].type) {
-					case GRAPPLE_HOOK_ITEM:
-						context.fillStyle = GRAPPLE_HOOK_ITEM_COLOR;
-						context.fillRect(items[i].position.x, items[i].position.y, items[i].width, items[i].height);
-						break;
-
-					case DOUBLE_HOOK_ITEM:
-						context.drawImage(DOUBLE_HOOK_ITEM_IMAGE, items[i].position.x, items[i].position.y, items[i].width, items[i].height);
-						break;
-
-					case TRIDENT_ITEM:
-						context.drawImage(TRIDENT_ITEM_IMAGE, items[i].position.x, items[i].position.y, items[i].width, items[i].height);
-						break;
-
-					case TIMER_BOOST_ITEM:
-						context.drawImage(TIMER_BOOST_ITEM_IMAGE, items[i].position.x, items[i].position.y, items[i].width, items[i].height);
-						break;
-
-					case DYNAMITE_ITEM:
-						context.drawImage(DYNAMITE_IMAGE, items[i].position.x, items[i].position.y, items[i].width, items[i].height);
-						break;
-
-					case FREEZE_ITEM:
-						context.drawImage(FREEZE_IMAGE, items[i].position.x, items[i].position.y, items[i].width, items[i].height);
-						break;
-
-					case SHIELD_ITEM:
-						context.drawImage(SHIELD_ITEM_IMAGE, items[i].position.x, items[i].position.y, items[i].width, items[i].height);
-						break;
-
-					case GUN_ITEM:
-						context.fillStyle = "blue";
-						context.fillRect(items[i].position.x, items[i].position.y, items[i].width, items[i].height);
-						break;
-				}
-			}
-		}
-
-		// weapons drawing
-		for (var i = 0; i < weapons.length; i++) {
-			switch (weapons[i].type) {
-				case GRAPPLE_HOOK_NUMBER:
-					context.fillStyle = GRAPPLE_HOOK_COLOR;
-					context.fillRect(weapons[i].position.x, weapons[i].position.y, HOOK_WITDH, -weapons[i].length);
-					break;
-
-				case DOUBLE_HOOK_NUMBER:
-					context.fillStyle = "black";
-					context.fillRect(weapons[i].position.x, weapons[i].position.y, HOOK_WITDH, -weapons[i].length);
-					context.drawImage(DOUBLE_HOOK_IMAGE, weapons[i].position.x - 5, weapons[i].position.y - weapons[i].length);
-					break;
-
-				case TRIDENT_NUMBER:
-					if (weapons[i].time < 1) {
-						context.fillStyle = TRIDENT_COLOR1;
-					} else if (weapons[i].time < 2) {
-						context.fillStyle = TRIDENT_COLOR2;
-					} else {
-						context.fillStyle = TRIDENT_COLOR3;
-					}
-					context.fillRect(weapons[i].position.x, weapons[i].position.y, HOOK_WITDH, -weapons[i].length + 5);
-					context.drawImage(TRIDENT_IMAGE, weapons[i].position.x - 20, weapons[i].position.y - weapons[i].length);
-					break;
-
-				case GUN_NUMBER:
-					context.fillStyle = "black";
-					context.fillRect(weapons[i].position.x, weapons[i].position.y, HOOK_WITDH, -weapons[i].length);
-					break;
-			}
-		}
-
-		// Drawing of the player
-		if (!easterEgg) {
-			if (!victory) {
-				if (
-					!isInvincible ||
-					areBalloonsFreeze ||
-					(Date.now() - playerBlinkTimer) % 500 < 250
-				) {
-					if (player.speed.x > 0) {
-						context.drawImage(PLAYER_IMAGE_RIGHT, player.position.x, player.position.y);
-						player_last_direction = 1;
-					} else if (player.speed.x < 0) {
-						context.drawImage(PLAYER_IMAGE_LEFT, player.position.x, player.position.y);
-						player_last_direction = -1;
-					} else {
-						if (player_last_direction > 0) {
-							context.drawImage(PLAYER_IMAGE_RIGHT, player.position.x, player.position.y);
-						} else {
-							context.drawImage(PLAYER_IMAGE_LEFT, player.position.x, player.position.y);
-						}
-					}
-					//Shield
-					if (player.shieldOn) {
-						context.drawImage(SHIELD_IMAGE, player.position.x, player.position.y);
-					}
-				}
-			} else {
-				if (player_last_direction > 0) {
-					context.drawImage(PLAYER_IMAGE_RIGHT, player.position.x, player.position.y);
-				} else {
-					context.drawImage(PLAYER_IMAGE_LEFT, player.position.x, player.position.y);
-				}
-			}
-		} else {
-			context.drawImage(EASTER_BUNNY, player.position.x, player.position.y);
-		}
-
-		// Victory and defeat screen
-		if (victory) {
-			drawFinalMessage("victory");
-		}
-		if (defeat) {
-			if (player.livesNumber > 1) {
-				drawFinalMessage("defeat");
-			} else {
-				player.livesNumber -= 1;
-				drawFinalMessage("defeat");
-			}
-		}
-	}
+    context.textBaseline = "alphabetic";
+  } else {
+    context.clearRect(0, 0, 1080, 608);
+    var l = "LEVEL " + numLevel;
+    (context.fillStyle = "white"),
+      (context.strokeStyle = "black"),
+      (context.lineWidth = 1.6),
+      (context.font = "bolder 30px Arial"),
+      context.fillText(
+        l,
+        context.width / 2 - context.measureText(l).width + 60,
+        40
+      ),
+      context.strokeText(
+        l,
+        context.width / 2 - context.measureText(l).width + 60,
+        40
+      );
+    var r = "TIME : ";
+    Math.floor(timer) > 10 && Math.floor(timer) < 100
+      ? (r += "0")
+      : Math.floor(timer) < 10 && (r += "00"),
+      (r += Math.floor(timer)),
+      (context.fillStyle = "white"),
+      (context.strokeStyle = "black"),
+      (context.lineWidth = 1.6),
+      (context.font = "bolder 30px Arial"),
+      context.fillText(
+        r,
+        context.width - context.measureText(r).width - 20,
+        40
+      ),
+      context.strokeText(
+        r,
+        context.width - context.measureText(r).width - 20,
+        40
+      );
+    var a = "SCORE : " + player.score;
+    (context.lineWidth = 1.3),
+      (context.font = "bolder 23px Arial"),
+      context.fillText(a, 20, 30),
+      context.strokeText(a, 20, 30);
+    var y = "LIVES : ";
+    if (player.livesNumber > 0)
+      for (n = 0; n < player.livesNumber; n++) y += "I";
+    else y += "0";
+    context.fillText(y, 20, 57), context.strokeText(y, 20, 57);
+    for (n = 0; n < platforms.length; n++)
+      platforms[n].exist &&
+        (platforms[n].isDestructible
+          ? (context.fillStyle = DESTRUCTIBLE_PLATFORM_COLOR)
+          : (context.fillStyle = PLATFORM_COLOR),
+        context.fillRect(
+          platforms[n].position.x,
+          platforms[n].position.y,
+          platforms[n].width,
+          platforms[n].height
+        ));
+    for (n = 0; n < ladders.length; n++)
+      context.drawImage(
+        LADDERS_IMAGE,
+        ladders[n].position.x,
+        ladders[n].position.y,
+        ladders[n].width,
+        ladders[n].height
+      );
+    if (
+      !areBalloonsFreeze ||
+      Date.now() - balloonBlinkTimer < 4e3 ||
+      (Date.now() - balloonBlinkTimer) % 400 < 100
+    )
+      for (n = 0; n < balloons.length; n++)
+        balloons[n].size.number > 0 && fillCircle(balloons[n]);
+    for (n = 0; n < items.length; n++)
+      if (-1 != items[n].type)
+        switch (
+          (items[n].time < 2
+            ? (context.fillStyle = "white")
+            : items[n].time < 3
+            ? (context.fillStyle = "darkgrey")
+            : (context.fillStyle = "black"),
+          context.beginPath(),
+          context.arc(
+            items[n].position.x + items[n].width / 2,
+            items[n].position.y + items[n].height / 2,
+            items[n].width / 2,
+            0,
+            2 * Math.PI
+          ),
+          context.fill(),
+          items[n].type)
+        ) {
+          case GRAPPLE_HOOK_ITEM:
+            (context.fillStyle = GRAPPLE_HOOK_ITEM_COLOR),
+              context.fillRect(
+                items[n].position.x,
+                items[n].position.y,
+                items[n].width,
+                items[n].height
+              );
+            break;
+          case DOUBLE_HOOK_ITEM:
+            context.drawImage(
+              DOUBLE_HOOK_ITEM_IMAGE,
+              items[n].position.x,
+              items[n].position.y,
+              items[n].width,
+              items[n].height
+            );
+            break;
+          case TRIDENT_ITEM:
+            context.drawImage(
+              TRIDENT_ITEM_IMAGE,
+              items[n].position.x,
+              items[n].position.y,
+              items[n].width,
+              items[n].height
+            );
+            break;
+          case TIMER_BOOST_ITEM:
+            context.drawImage(
+              TIMER_BOOST_ITEM_IMAGE,
+              items[n].position.x,
+              items[n].position.y,
+              items[n].width,
+              items[n].height
+            );
+            break;
+          case DYNAMITE_ITEM:
+            context.drawImage(
+              DYNAMITE_IMAGE,
+              items[n].position.x,
+              items[n].position.y,
+              items[n].width,
+              items[n].height
+            );
+            break;
+          case FREEZE_ITEM:
+            context.drawImage(
+              FREEZE_IMAGE,
+              items[n].position.x,
+              items[n].position.y,
+              items[n].width,
+              items[n].height
+            );
+            break;
+          case SHIELD_ITEM:
+            context.drawImage(
+              SHIELD_ITEM_IMAGE,
+              items[n].position.x,
+              items[n].position.y,
+              items[n].width,
+              items[n].height
+            );
+            break;
+          case GUN_ITEM:
+            (context.fillStyle = "blue"),
+              context.fillRect(
+                items[n].position.x,
+                items[n].position.y,
+                items[n].width,
+                items[n].height
+              );
+        }
+    for (n = 0; n < weapons.length; n++)
+      switch (weapons[n].type) {
+        case GRAPPLE_HOOK_NUMBER:
+          (context.fillStyle = GRAPPLE_HOOK_COLOR),
+            context.fillRect(
+              weapons[n].position.x,
+              weapons[n].position.y,
+              HOOK_WITDH,
+              -weapons[n].length
+            );
+          break;
+        case DOUBLE_HOOK_NUMBER:
+          (context.fillStyle = "black"),
+            context.fillRect(
+              weapons[n].position.x,
+              weapons[n].position.y,
+              HOOK_WITDH,
+              -weapons[n].length
+            ),
+            context.drawImage(
+              DOUBLE_HOOK_IMAGE,
+              weapons[n].position.x - 5,
+              weapons[n].position.y - weapons[n].length
+            );
+          break;
+        case TRIDENT_NUMBER:
+          weapons[n].time < 1
+            ? (context.fillStyle = TRIDENT_COLOR1)
+            : weapons[n].time < 2
+            ? (context.fillStyle = TRIDENT_COLOR2)
+            : (context.fillStyle = TRIDENT_COLOR3),
+            context.fillRect(
+              weapons[n].position.x,
+              weapons[n].position.y,
+              HOOK_WITDH,
+              5 - weapons[n].length
+            ),
+            context.drawImage(
+              TRIDENT_IMAGE,
+              weapons[n].position.x - 20,
+              weapons[n].position.y - weapons[n].length
+            );
+          break;
+        case GUN_NUMBER:
+          (context.fillStyle = "black"),
+            context.fillRect(
+              weapons[n].position.x,
+              weapons[n].position.y,
+              HOOK_WITDH,
+              -weapons[n].length
+            );
+      }
+    easterEgg
+      ? context.drawImage(EASTER_BUNNY, player.position.x, player.position.y)
+      : victory
+      ? player_last_direction > 0
+        ? context.drawImage(
+            PLAYER_IMAGE_RIGHT,
+            player.position.x,
+            player.position.y
+          )
+        : context.drawImage(
+            PLAYER_IMAGE_LEFT,
+            player.position.x,
+            player.position.y
+          )
+      : (!isInvincible ||
+          areBalloonsFreeze ||
+          (Date.now() - playerBlinkTimer) % 500 < 250) &&
+        (player.speed.x > 0
+          ? (context.drawImage(
+              PLAYER_IMAGE_RIGHT,
+              player.position.x,
+              player.position.y
+            ),
+            (player_last_direction = 1))
+          : player.speed.x < 0
+          ? (context.drawImage(
+              PLAYER_IMAGE_LEFT,
+              player.position.x,
+              player.position.y
+            ),
+            (player_last_direction = -1))
+          : player_last_direction > 0
+          ? context.drawImage(
+              PLAYER_IMAGE_RIGHT,
+              player.position.x,
+              player.position.y
+            )
+          : context.drawImage(
+              PLAYER_IMAGE_LEFT,
+              player.position.x,
+              player.position.y
+            ),
+        player.shieldOn &&
+          context.drawImage(
+            SHIELD_IMAGE,
+            player.position.x,
+            player.position.y
+          )),
+      victory && drawFinalMessage("victory"),
+      defeat &&
+        (player.livesNumber > 1
+          ? drawFinalMessage("defeat")
+          : ((player.livesNumber -= 1), drawFinalMessage("defeat")));
+  }
 }
-
-/**
- * Key down event
- * 
- * @param event An event listener
- */
-function captureKeyboardPress(event) {
-	if (numLevel == 0) {
-		// menu
-		switch (event.keyCode) {
-			case 13: //enter
-				numLevel = 1;
-				break;
-			case 49: // niveau 1
-			case 50: // niveau 2
-			case 51: // niveau 3
-			case 52: // niveau 4
-			case 53: // niveau 5
-			case 54: // niveau 6
-			case 55: // niveau 7
-			case 56: // niveau 8
-			case 57: // niveau 9
-				numLevel = event.keyCode - 48;
-				levelInitialization(numLevel);
-				break;
-		}
-	} else {
-		// jeu
-		switch (event.keyCode) {
-			// Player1 left or right
-			case 39:
-			case 37:
-				playerMove(event.keyCode);
-				break;
-
-			// Player1 up or down
-			case 38:
-			case 40:
-				event.preventDefault(); //disable the default's navigator scrolling action on the html page
-				playerMoveLadder(event.keyCode);
-				break;
-
-			// 'M' to return to main menu
-			case 77:
-				numLevel = 0;
-				break;
-
-			// 'P' means pause or unpause
-			case 80:
-				pause = !pause;
-				break;
-
-			// Space for fire the weapon
-			case 32:
-				event.preventDefault();
-				shootWeapon(player);
-				break;
-
-			// Enter to insert credits and play again
-			case 13:
-				if (defeat) {
-					if (player.livesNumber > 0) {
-						defeat = false;
-						levelInitialization(numLevel);
-						player.livesNumber -= 1;
-					} else {
-						defeat = false;
-						levelInitialization(numLevel);
-						player.livesNumber = 3;
-						player.score = 0;
-					}
-				} else if (victory) {
-					numLevel += 1;
-					if (numLevel > MAX_LEVEL) {
-						numLevel = 0;
-					}
-					victory = !victory;
-					levelInitialization(numLevel);
-				}
-				break;
-		}
-	}
-
-	/******* EASTER EGG ******/
-
-	if (event.ctrlKey) {
-		event.preventDefault();
-		if (event.altKey) {
-			event.preventDefault();
-			if (event.keyCode == 68) {
-				easterEgg = !easterEgg;
-				if (easterEgg) {
-					player.width = 35;
-				} else {
-					player.width = 45;
-				}
-			}
-		}
-	}
+function captureKeyboardPress(e) {
+  if (0 == numLevel)
+    switch (e.keyCode) {
+      case 13:
+        numLevel = 1;
+        break;
+      case 49:
+      case 50:
+      case 51:
+      case 52:
+      case 53:
+      case 54:
+      case 55:
+      case 56:
+      case 57:
+        levelInitialization((numLevel = e.keyCode - 48));
+    }
+  else
+    switch (e.keyCode) {
+      case 39:
+      case 37:
+        playerMove(e.keyCode);
+        break;
+      case 38:
+      case 40:
+        e.preventDefault(), playerMoveLadder(e.keyCode);
+        break;
+      case 77:
+        numLevel = 0;
+        break;
+      case 80:
+        pause = !pause;
+        break;
+      case 32:
+        e.preventDefault(), shootWeapon(player);
+        break;
+      case 13:
+        defeat
+          ? player.livesNumber > 0
+            ? ((defeat = !1),
+              levelInitialization(numLevel),
+              (player.livesNumber -= 1))
+            : ((defeat = !1),
+              levelInitialization(numLevel),
+              (player.livesNumber = 3),
+              (player.score = 0))
+          : victory &&
+            ((numLevel += 1) > MAX_LEVEL && (numLevel = 0),
+            (victory = !victory),
+            levelInitialization(numLevel));
+    }
+  e.ctrlKey &&
+    (e.preventDefault(),
+    e.altKey &&
+      (e.preventDefault(),
+      68 == e.keyCode &&
+        ((easterEgg = !easterEgg), (player.width = easterEgg ? 35 : 45))));
 }
-
-/**
- * Key up event
- * 
- * @param event An event listener
- */
-captureKeyboardReleased = function (event) {
-	switch (event.keyCode) {
-		//Player1 left or right
-		case 39:
-		case 37:
-			playerStopMove(event.keyCode);
-			break;
-
-		case 38:
-		case 40:
-			playerStopMoveLadder();
-			break;
-	}
-};
-
-/**
- * Click event
- * 
- * @param event An event listener
- */
-captureClicSouris = function (event) {
-	if (numLevel == 0) {
-		if (event.target.id == "cvs") {
-			clic.x = event.pageX - cvs.offsetLeft;
-			clic.y = event.pageY - cvs.offsetTop;
-		}
-
-		// Buttons are clicked
-		if ((clic.y >= 400 && clic.y <= 440) || (clic.y >= 480 && clic.y <= 520)) {
-			// y position
-			if (clic.x >= 60 && clic.x <= cvs.width - 60) {
-				// x position without margin
-				var numButton = detectLevelButton();
-				if (numButton > 0) {
-					numLevel = numButton;
-					levelInitialization(numLevel);
-				}
-			}
-		}
-	}
-};
+(SHIELD_IMAGE.src = "./assets/shield.png"),
+  (playerMoveLadder = function (e) {
+    if (-1 != findLadder(player))
+      switch (e) {
+        case 38:
+          player.speed.y = -PLAYER_SPEED;
+          break;
+        case 40:
+          player.speed.y = PLAYER_SPEED;
+      }
+  }),
+  (captureKeyboardReleased = function (e) {
+    switch (e.keyCode) {
+      case 39:
+      case 37:
+        playerStopMove(e.keyCode);
+        break;
+      case 38:
+      case 40:
+        playerStopMoveLadder();
+    }
+  }),
+  (captureClicSouris = function (e) {
+    if (
+      0 == numLevel &&
+      ("cvs" == e.target.id &&
+        ((clic.x = e.pageX - cvs.offsetLeft),
+        (clic.y = e.pageY - cvs.offsetTop)),
+      ((clic.y >= 400 && clic.y <= 440) || (clic.y >= 480 && clic.y <= 520)) &&
+        clic.x >= 60 &&
+        clic.x <= cvs.width - 60)
+    ) {
+      var t = detectLevelButton();
+      t > 0 && levelInitialization((numLevel = t));
+    }
+  });
