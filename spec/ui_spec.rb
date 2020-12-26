@@ -1,10 +1,15 @@
 require "selenium-webdriver"
 
 driver = nil
+wait = nil
 
-RSpec.describe("UI") do
+RSpec.describe("User Interface") do
+  def check_url(driver, expected)
+    driver.current_url =~ /#{expected}/
+  end
+
   def click_ext_link(driver, num)
-    
+    driver.find_element(:css, "header > #title > ul > li:nth-of-type(#{num+1}) > a").click
   end
 
   def get_current_tab(driver)
@@ -18,6 +23,7 @@ RSpec.describe("UI") do
   before(:each) do
     driver = Selenium::WebDriver.for(:chrome)
     driver.get("http://127.0.0.1:4000")
+    wait = Selenium::WebDriver::Wait.new(:timeout => 10)
   end
 
   after(:each) do
@@ -42,10 +48,27 @@ RSpec.describe("UI") do
 
   it("checks the external links in the header") do
     links = ["resume.pdf", "linkedin.com", "github.com", "codepen.io"]
-
-    driver.sleep(500)
     links.length.times do |n|
+      wait.until do driver.find_element(:css, "header > #title > ul > li:nth-of-type(1) > a") end
+      click_ext_link(driver, n)
+      expect(check_url(driver, links[n])).to_not(eq(nil))
+      driver.navigate.back
+    end
+  end
 
+
+  it("checks the links on the Project tab") do
+    links = ["schoolexams", "github", "codepen"]
+    change_tab(driver, 1)
+    documentLinks = driver.find_elements(:css, ".display-content a")
+    expect(links.length).to(eq(documentLinks.length))
+
+    links.length.times do |n|
+      all = driver.find_elements(:css, ".display-content a")
+      all[n].click
+      expect(check_url(driver, links[n])).to_not(eq(nil))
+      driver.navigate.back
+      change_tab(driver, 1)
     end
   end
 end
