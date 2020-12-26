@@ -7,3 +7,4 @@ _site
 .jekyll-cache
 assets/
 *.json
+*.md
