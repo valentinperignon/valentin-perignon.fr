@@ -16,8 +16,6 @@ header {
       height: $picture-size;
       background-image: url("/assets/images/animation.png");
       background-size: auto $picture-size;
-      background-color: $color-gray;
-      border-radius: 100%;
       animation: helloworld 0.37s steps(7) forwards;
       animation-delay: 0.7s;
       margin: auto;
