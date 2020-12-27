@@ -1,11 +1,21 @@
 require "selenium-webdriver"
+require "net/http"
 
 driver = nil
 wait = nil
 
 RSpec.describe "User Interface" do
   def check_url(driver, expected)
-    driver.current_url =~ /#{expected}/
+    current_url = driver.current_url
+
+    uri = URI.parse current_url
+    res = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == "https") do |http|
+      req = Net::HTTP::Get.new uri
+      result = http.request req
+      result.code == "200"
+    end
+
+    current_url =~ /#{expected}/ && res
   end
 
   def click_ext_link(driver, num)

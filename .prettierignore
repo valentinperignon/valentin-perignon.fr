@@ -8,3 +8,5 @@ _site
 assets/
 *.json
 *.md
+*.code-workspace
+

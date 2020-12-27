@@ -7,3 +7,5 @@ _site
 .jekyll-cache
 assets/
 *.json
+*.code-workspace
+
