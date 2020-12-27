@@ -1,9 +1,9 @@
 <ul>
   {% for item in site.data.navigation %}
     <li>
-      <a href="{{ item.link }}"
-        ><i class="{{ item.icon }}"></i
-      ></a>
+      <a href="{{ item.link }}" aria-label="{{ item.purpose }}">
+        {% include icon-{{ item.icon }}.svg %}
+      </a>
     </li>
   {% endfor %}
 </ul>

@@ -9,4 +9,4 @@ assets/
 *.json
 *.md
 *.code-workspace
-
+*.html
