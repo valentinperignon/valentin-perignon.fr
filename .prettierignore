@@ -5,7 +5,10 @@ _layouts
 _sass
 _site
 .jekyll-cache
-assets/
+assets/css
+assets/docs
+assets/images
+assets/videos
 *.json
 *.md
 *.code-workspace
