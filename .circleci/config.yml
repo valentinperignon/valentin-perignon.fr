@@ -6,6 +6,8 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.6.3-stretch-node
+    environment:
+      BUNDLE_PATH: ~/repo/vendor/bundle
     executor: ruby/default
     steps:
       - checkout
