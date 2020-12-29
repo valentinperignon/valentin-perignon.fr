@@ -1,0 +1,14 @@
+footer {
+  padding-top: 1.2rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #464646;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

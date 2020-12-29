@@ -10,6 +10,13 @@ App Store an application,
 [SchoolExams](https://apps.apple.com/us/app/schoolexams/id1527399525)
 to help students keep track of their grades.
 
+&#x1F3E6; In 2019, I did a 3-month internship. I was in charge of the development
+of a web application for bankers. The app was developed with PHP
+and JavaScript.
+
+&#x1F579;&#xFE0F; In freshman year, as part of my studies, two friends and I recreated
+[the game Pang](https://pang.valentin-perignon.fr) in JavaScript.
+
 More? You can visit
 [GitHub](https://github.com/valentinperignon) or
 [CodePen](https://codepen.io/valentin-lab)!

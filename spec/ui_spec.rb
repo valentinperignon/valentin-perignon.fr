@@ -78,7 +78,7 @@ RSpec.describe "User Interface" do
   end
 
   it "checks the links on the Project tab" do
-    links = ["schoolexams", "github", "codepen"]
+    links = ["schoolexams", "pang", "github", "codepen"]
     change_tab 1
     documentLinks = $driver.find_elements(:css, ".display-content a")
     expect(links.length).to eq(documentLinks.length)
