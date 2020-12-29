@@ -15,22 +15,21 @@ My personal website, built with [Jekyll](https://jekyllrb.com/).
 
 You can install all necessary dependencies with Bundler.
 ```
-bundle install
+$ bundle install
 ```
 It will install:
  - [Jekyll](https://jekyllrb.com/)
- - [RSpec](https://rspec.info/)
- - [Selenium WebDriver](https://www.selenium.dev/)
+ - [HTMLProofer](https://github.com/gjtorikian/html-proofer)
 
 ## Build
 
 The site will be built into a `_site` directory.
 ```
-bundle exec jekyll build
+$ bundle exec jekyll build
 ```
 
 ## Running the tests
-To run the tests, you need to download the [Selenium chromedriver](https://www.selenium.dev/documentation/en/webdriver/driver_requirements/). Then just run the following command:
+To run the tests with HTMLProofer, you need to use the following command:
 ```
-bundle exec rspec spec/ui_spec.rb
+$ bundle exec htmlproofer _site --check-html --enforce-https --report-invalid-tags --report-eof-tags --report-mismatched-tags --http_status_ignore 403,999
 ```
