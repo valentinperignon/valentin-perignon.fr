@@ -3,11 +3,9 @@ orbs:
   ruby: circleci/ruby@0.1.2 
 
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/ruby:2.6.3-stretch-node
-    environment:
-      BUNDLE_PATH: ~/repo/vendor/bundle
     executor: ruby/default
     steps:
       - checkout
@@ -18,12 +16,6 @@ jobs:
       - run:
           name: Jekyll build
           command: bundle exec jekyll build
-  test:
-    docker:
-      - image: circleci/ruby:2.6.3-stretch-node
-    executor: ruby/default
-    steps:
-      - checkout
       - run:
           name: HTMLProofer test
           command: |
@@ -37,9 +29,6 @@ jobs:
 
 workflows:
   version: 2.1
-  build_and_test:
+  test:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - test
