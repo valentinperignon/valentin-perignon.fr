@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run:
           name: Update bundle
-          command: bundle update --bundler
+          command: gem install bundler:2.2.2
       - ruby/bundle-install
       - run:
           name: Jekyll build
