@@ -18,6 +18,12 @@ jobs:
       - run:
           name: Jekyll build
           command: bundle exec jekyll build
+  test:
+    docker:
+      - image: circleci/ruby:2.6.3-stretch-node
+    executor: ruby/default
+    steps:
+      - checkout
       - run:
           name: HTMLProofer test
           command: |
@@ -28,3 +34,10 @@ jobs:
             --report-eof-tags \
             --report-mismatched-tags \
             --http_status_ignore 403,999
+
+workflows:
+  version: 2.1
+  build_and_test:
+    jobs:
+      - build
+      - test
