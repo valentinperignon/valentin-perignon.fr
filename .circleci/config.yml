@@ -1,0 +1,34 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2 
+
+jobs:
+  test:
+    docker:
+      - image: circleci/ruby:2.6.3-stretch-node
+    executor: ruby/default
+    steps:
+      - checkout
+      - run:
+          name: Update bundle
+          command: gem install bundler:2.2.2
+      - ruby/bundle-install
+      - run:
+          name: Jekyll build
+          command: bundle exec jekyll build
+      - run:
+          name: HTMLProofer test
+          command: |
+            bundle exec htmlproofer _site \
+            --check-html \
+            --enforce-https \
+            --report-invalid-tags \
+            --report-eof-tags \
+            --report-mismatched-tags \
+            --http_status_ignore 403,999
+
+workflows:
+  version: 2.1
+  test:
+    jobs:
+      - test
