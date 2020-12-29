@@ -2,6 +2,7 @@
 
 My personal website, built with [Jekyll](https://jekyllrb.com/).
 
+![CircleCI](https://img.shields.io/circleci/build/github/valentinperignon/valentin-perignon.fr/main)
 ![Website](https://img.shields.io/website?up_message=online&url=https%3A%2F%2Fwww.valentin-perignon.fr)
 
 ## Getting Started
